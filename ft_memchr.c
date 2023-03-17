@@ -1,33 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iyeonjae <iyeonjae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 17:01:20 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/03/17 17:17:25 by iyeonjae         ###   ########.fr       */
+/*   Created: 2023/03/18 03:30:27 by iyeonjae          #+#    #+#             */
+/*   Updated: 2023/03/18 03:31:02 by iyeonjae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	idx;
-	char	*cdst;
-	char	*csrc;
-
-	if (dst || src)
-	{
-		cdst = (char *)dst;
-		csrc = (char *)src;
-		idx = 0;
-		while (idx < n)
-		{
-			cdst[idx] = csrc[idx];
-			idx++;
-		}
-	}
-	return (dst);
-}
+void	*ft_memchr(const void *s, int c, size_t n);

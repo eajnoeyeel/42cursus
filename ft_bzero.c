@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iyeonjae <iyeonjae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 00:15:35 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/17 00:23:05 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/03/17 17:07:54 by iyeonjae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	bzero(void *s, size_t n)
 {
-	int		idx;
+	size_t	idx;
 	char	*p;
 
 	idx = 0;
@@ -22,6 +22,6 @@ void	bzero(void *s, size_t n)
 	while (idx < n)
 	{
 		p[idx] = 0;
-		idx++;		
+		idx++;
 	}
 }
