@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 14:52:27 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/13 23:52:22 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/03/15 01:49:35 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/03/15 07:50:19 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include "libft.h"
+
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int		idx;
+	char	*res;
+
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!res)
+		return (NULL);
+	idx = 0;
+	while (s1[idx])
+	{
+		res[idx] = s1[idx];
+		idx++;
+	}
+	idx = 0;
+	while (s2[idx])
+	{
+		res[ft_strlen(s1) + idx] = s2[idx];
+		idx++;
+	}
+	res[ft_strlen(s1) + idx] = 0;
+	return (res);
 }
