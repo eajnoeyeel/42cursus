@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 04:30:33 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/21 04:47:23 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/03/24 03:10:33 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new->next = *lst;
-	*lst = new;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		new->next = *lst;
+		*lst = new;
+	}
 }
