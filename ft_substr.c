@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 02:48:32 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/14 23:40:12 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/03/24 02:35:03 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	res = (char *)malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
-	while (s[idx] && idx < len)
+	while (idx < len)
 	{
 		res[idx] = s[start + idx];
 		idx++;
