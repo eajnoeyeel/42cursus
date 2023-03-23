@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 22:39:40 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/22 18:36:59 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/03/24 03:00:14 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		head = head->next;
 		free(temp);
 	}
-	if (head)
-		free(head);
+	free(head);
 	*lst = NULL;
 }
