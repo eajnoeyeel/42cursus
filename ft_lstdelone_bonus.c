@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 22:16:14 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/21 22:38:52 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/03/24 03:26:01 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	del(lst->content);
-	free(lst);
+	if (lst)
+	{
+		del(lst->content);
+		free(lst);
+	}
 }
