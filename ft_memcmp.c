@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 17:20:21 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/23 01:09:37 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/03/18 03:51:51 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/03/18 03:59:30 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	idx;
-	size_t	len;
+	size_t			idx;
+	unsigned char	*c1;
+	unsigned char	*c2;
 
+	c1 = (unsigned char *)s1;
+	c2 = (unsigned char *)s2;
 	idx = 0;
-	len = ft_strlen(src);
-	if (dstsize == 0)
-		return (len);
-	while (src[idx] && idx + 1 < dstsize)
+	while (idx < n)
 	{
-		dst[idx] = src[idx];
+		if (c1[idx] != c2[idx])
+			return (c1[idx] - c2[idx]);
 		idx++;
 	}
-	dst[idx] = 0;
-	return (len);
+	return (0);
 }

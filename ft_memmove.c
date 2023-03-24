@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyeonjae <iyeonjae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:19:37 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/03/18 03:28:38 by iyeonjae         ###   ########.fr       */
+/*   Updated: 2023/03/18 03:58:24 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	// size_t			idx;
+	size_t			idx;
 	unsigned char	*cdst;
 	unsigned char	*csrc;
 
@@ -22,31 +22,19 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	csrc = (unsigned char *)src;
 	if (csrc == cdst)
 		return (dst);
-	// if (csrc == NULL && cdst == NULL)
-	// 	return (dst);
 	if (cdst < csrc)
 	{
-		// idx = 0;
-		// while (idx < len)
-		// {
-			// cdst[idx] = csrc[idx];
-			// idx++;
-		// }
-		while(len)
+		idx = 0;
+		while (idx < len)
 		{
-			*cdst++ = *csrc++;
-			len--;
+			cdst[idx] = csrc[idx];
+			idx++;
 		}
 	}
 	else
 	{
-		cdst += len;
-		csrc += len;
-		while (len)
-		{
-			*--cdst = *--csrc;
-			len--;
-		}
+		while (len--)
+			cdst[len] = csrc[len];
 	}
-    return (dst);
+	return (dst);
 }
