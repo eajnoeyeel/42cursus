@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 17:37:59 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/04/15 22:08:26 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/04/16 21:07:34 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int	ft_printf(const char *format, ...)
 // 	return (0);
 // }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int main()
-{
-	printf("\nreturn value of printf: %d\n", printf("%X", 0x7fedcba1));
-	printf("\nreturn value of ft_printf: %d\n", ft_printf("%X", 0x7fedcba1));
-	return (0);
-}
+// int main()
+// {
+// 	printf("\nreturn value of printf: %d\n", printf("%x", -10));
+// 	printf("\nreturn value of ft_printf: %d\n", ft_printf("%x", -10));
+// 	return (0);
+// }

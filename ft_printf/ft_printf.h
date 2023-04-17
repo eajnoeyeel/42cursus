@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 17:41:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/04/15 01:52:57 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/04/16 19:20:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-int		ft_specifier(va_list ap, char c);
 int		ft_printf(const char *format, ...);
+int		ft_specifier(va_list ap, char c);
 int		ft_putchar(unsigned char c);
 int		ft_putstr(char *s);
 int		ft_putaddr(unsigned long long addr);
