@@ -6,12 +6,11 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 17:37:59 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/04/16 21:07:34 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/04/22 05:00:24 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// #include "ft_printf_utils.c"
 
 int	ft_putchar(unsigned char c)
 {
@@ -57,8 +56,10 @@ int	ft_specifier(va_list ap, char c)
 		return (ft_putlowerhex(va_arg(ap, unsigned int)));
 	else if (c == 'X')
 		return (ft_putupperhex(va_arg(ap, unsigned int)));
-	else
+	else if (c == '%')
 		return (write(1, "%", 1));
+	else
+		return (-1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -86,28 +87,6 @@ int	ft_printf(const char *format, ...)
 			len += tmp;
 		idx++;
 	}
+	va_end(ap);
 	return (len);
 }
-
-// #include <stdio.h>
-// #include <string.h>
-
-// int main()
-// {
-// 	char *buf = (char *)malloc(10);
-// 	char *buf2 = (char *)malloc(10);
-
-// 	strcpy(buf, "%p%p%p%p");
-
-// 	printf("\nreturn value of ft_printf: %d\n", ft_printf(buf, buf2));
-// 	return (0);
-// }
-
-// #include <stdio.h>
-
-// int main()
-// {
-// 	printf("\nreturn value of printf: %d\n", printf("%x", -10));
-// 	printf("\nreturn value of ft_printf: %d\n", ft_printf("%x", -10));
-// 	return (0);
-// }
