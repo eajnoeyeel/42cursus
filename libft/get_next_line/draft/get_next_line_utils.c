@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 22:23:53 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/30 23:02:38 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/04/01 19:02:55 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/04/02 19:21:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
-	if (s)
+	if(s)
 		while (s[len])
 			len++;
 	return (len);
