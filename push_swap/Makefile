@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/05/29 04:46:38 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/05/29 07:48:18 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS		= ${SRCS:.c=.o}
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 
 NAME        = push_swap
 
@@ -40,12 +40,12 @@ all		:	${NAME}
 
 %.o		:	%.c
 			@echo "${YELLOW}Compiling..."
-			@$(CC) $(CFLAGS) -c -o $@ $< 
+			@$(CC) $(CFLAGS) -c -o $@ $<
 
 ${NAME} :	${OBJS}
 			@make all -C $(LIBFT)/
 			@$(CC) $(CFLAGS) -o $@ $^ ${LIBFT}/${ARCHIVE}
-			@echo "${GREEN}Compilation done✅"
+			@echo "${GREEN}Compilation done"
 
 clean   :
 			@${RM} ${OBJS}

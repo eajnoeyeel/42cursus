@@ -6,14 +6,14 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/05/29 04:24:22 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/05/30 02:16:33 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# define ERROR 2147483648
+# define EMPTY 2147483648
 # include "libft/libft.h"
 
 typedef struct	s_stack

@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/05/29 03:07:15 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/05/30 06:51:54 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ void	push(int element, t_stack *cq)
 	// TODO: Things that need to be done when the queue is full.
 	if (isFull(cq))
 		return ;
-	if (cq->rear == -1)
+	if (isEmpty(cq))
+	{
+		cq->rear = 0;
 		cq->fore = 0;
-	cq->fore = (cq->fore - 1 + cq->capa) % cq->capa;
-	cq->elem[cq->fore] = element;
+	}
+	else
+		cq->rear = (cq->rear + 1) % cq->capa;
+	cq->elem[cq->rear] = element;
 	cq->size++;
 }
 
@@ -48,9 +52,9 @@ long long	pop(t_stack *cq)
 	int	element;
 
 	if (isEmpty(cq))
-		//What TODO: when there is nothing to pop?
-		return (ERROR);
-	element = cq->elem[cq->fore];
+		// What TODO: when there is nothing to pop?
+		return (EMPTY);
+	element = cq->elem[cq->rear];
 	if (cq->fore == cq->rear)
 	{
 		cq->fore = -1;
@@ -58,7 +62,7 @@ long long	pop(t_stack *cq)
 	}
 	else
 	{
-		cq->fore = (cq->fore + 1) % cq->capa;
+		cq->rear = (cq->rear - 1 + cq->capa) % cq->capa;
 		cq->size--;
 	}
 	return (element);
@@ -69,20 +73,17 @@ void	preprocess(int argc, char *argv[], t_stack *cq)
 	int	i;
 	int	j;
 
-	i = 1;
-	while (i < argc)
+	i = argc - 1;
+	while (i > 0)
 	{
 		j = 0;
 		while (argv[i][j])
 		{
 			if (argv[i][j] != ' ')
-			{
 				push(ft_atoi(&argv[i][j]), cq);
-				cq->size++;
-			}
 			j++;
 		}
-		i++;
+		i--;
 	}
 }
 
@@ -94,15 +95,13 @@ void	destroyQueue(t_stack *cq)
 
 void	swap(t_stack *cq)
 {
-	int	tmp1;
-	int	tmp2;
-	
+	int temp;
+
 	if (cq->size < 2)
 		return ;
-	tmp1 = pop(cq);
-	tmp2 = pop(cq);
-	push(tmp1, cq);
-	push(tmp2, cq);
+	temp = cq->elem[cq->rear];
+	cq->elem[cq->rear] = cq->elem[(cq->rear - 1 + cq->capa) % cq->capa];
+	cq->elem[(cq->rear - 1 + cq->capa) % cq->capa] = temp;
 }
 
 void	sa(t_stack *cq)
@@ -136,7 +135,7 @@ void	pa(t_stack *cq_a, t_stack *cq_b)
 	long long	tmp;
 
 	tmp = pop(cq_b);
-	if (tmp == ERROR)
+	if (tmp == EMPTY)
 		return ;
 	push(tmp, cq_a);
 	ft_printf("pa\n");
@@ -147,7 +146,7 @@ void	pb(t_stack *cq_a, t_stack *cq_b)
 	long long	tmp;
 
 	tmp = pop(cq_a);
-	if (tmp == ERROR)
+	if (tmp == EMPTY)
 		return ;
 	push(tmp, cq_b);
 	ft_printf("pb\n");
@@ -157,8 +156,8 @@ void	rotate(t_stack *cq)
 {
 	if (cq->size < 2)
 		return ;
-	cq->rear = cq->fore;
-	cq->fore = (cq->fore + 1) % cq->capa;
+	cq->fore = cq->rear;
+	cq->rear = (cq->rear - 1 + cq->size) % cq->size;
 }
 
 void	ra(t_stack *cq)
@@ -217,13 +216,19 @@ int main(int argc, char *argv[])
 	queue_a = malloc(sizeof(t_stack));
 	queue_b = malloc(sizeof(t_stack));
 
-	createQueue(queue_a, argc - 1);
-	createQueue(queue_b, argc - 1);
+	createQueue(queue_a, 500);
+	createQueue(queue_b, 500);
 
 	preprocess(argc, argv, queue_a);
-	for (int i = 0; i < queue_a->size; i++)
+	ra(queue_a);
+	pa(queue_b, queue_a);
+	int curr = queue_a->rear;
+	int	iter = queue_a->size;
+	while (iter)
 	{
-		printf("%d\n", (queue_a->elem)[i]);
+		printf("%d\n", queue_a->elem[curr]);
+		curr = (curr - 1 + queue_a->size) % queue_a->size;
+		iter--;
 	}
 	printf("size: %d\n", queue_a->size);
 	return (0);
