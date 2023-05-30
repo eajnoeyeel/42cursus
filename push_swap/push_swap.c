@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/05/30 06:51:54 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/05/31 05:54:38 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ long long	pop(t_stack *cq)
 		cq->rear = -1;
 	}
 	else
-	{
 		cq->rear = (cq->rear - 1 + cq->capa) % cq->capa;
-		cq->size--;
-	}
+	cq->size--;
 	return (element);
 }
 
@@ -120,35 +118,35 @@ void	sb(t_stack *cq)
 	ft_printf("sb\n");
 }
 
-void	ss(t_stack *cq_a, t_stack *cq_b)
+void	ss(t_stack *a, t_stack *b)
 {
 	// FIXME: if condition needs to be clarified
-	if (cq_a->size < 2 && cq_b->size < 2)
+	if (a->size < 2 && b->size < 2)
 		return ;
-	swap(cq_a);
-	swap(cq_b);
+	swap(a);
+	swap(b);
 	ft_printf("ss\n");
 }
 
-void	pa(t_stack *cq_a, t_stack *cq_b)
+void	pa(t_stack *a, t_stack *b)
 {
 	long long	tmp;
 
-	tmp = pop(cq_b);
+	tmp = pop(b);
 	if (tmp == EMPTY)
 		return ;
-	push(tmp, cq_a);
+	push(tmp, a);
 	ft_printf("pa\n");
 }
 
-void	pb(t_stack *cq_a, t_stack *cq_b)
+void	pb(t_stack *a, t_stack *b)
 {
 	long long	tmp;
 
-	tmp = pop(cq_a);
+	tmp = pop(a);
 	if (tmp == EMPTY)
 		return ;
-	push(tmp, cq_b);
+	push(tmp, b);
 	ft_printf("pb\n");
 }
 
@@ -172,10 +170,10 @@ void	rb(t_stack *cq)
 	ft_printf("rb\n");
 }
 
-void	rr(t_stack *cq_a, t_stack *cq_b)
+void	rr(t_stack *a, t_stack *b)
 {
-	rotate(cq_a);
-	rotate(cq_b);
+	rotate(a);
+	rotate(b);
 	ft_printf("rr\n");
 }
 
@@ -183,53 +181,75 @@ void	reverse(t_stack *cq)
 {
 	if (cq->size < 2)
 		return ;
-	cq->fore = cq->rear;
-	cq->rear = (cq->rear - 1 + cq->capa) % cq->capa;
+	cq->rear = cq->fore;
+	cq->fore = (cq->fore + 1) % cq->size;
 }
 
 void	rra(t_stack *cq)
 {
 	reverse(cq);
-	ft_printf("rra");
+	ft_printf("rra\n");
 }
 
 void	rrb(t_stack *cq)
 {
 	reverse(cq);
-	ft_printf("rrb");
+	ft_printf("rrb\n");
 }
 
-void	rrr(t_stack *cq_a, t_stack *cq_b)
+void	rrr(t_stack *a, t_stack *b)
 {
-	reverse(cq_a);
-	reverse(cq_b);
-	ft_printf("rrr");
+	reverse(a);
+	reverse(b);
+	ft_printf("rrr\n");
+}
+
+void	printStacks(t_stack *a, t_stack *b)
+{
+	int	iter;
+
+	iter = a->size;
+	if (iter < b->size)
+		iter = b->size;
+	while (iter)
+	{
+		if (iter <= a->size)
+			ft_printf("%d", a->elem[(a->fore - 1 + iter) % a->size]);
+		else
+			ft_printf(" ");
+		ft_printf(" ");
+		if (iter <= b->size)
+			ft_printf("%d", b->elem[(b->fore - 1 + iter) % b->size]);
+		else
+			ft_printf(" ");
+		ft_printf("\n");
+		iter--;
+	}
+	ft_printf("_ _\n");
+	ft_printf("a b\n");
 }
 
 #include <stdio.h>
 
 int main(int argc, char *argv[])
 {
-	t_stack *queue_a;
-	t_stack	*queue_b;
+	t_stack *a;
+	t_stack	*b;
 
-	queue_a = malloc(sizeof(t_stack));
-	queue_b = malloc(sizeof(t_stack));
+	a = malloc(sizeof(t_stack));
+	b = malloc(sizeof(t_stack));
 
-	createQueue(queue_a, 500);
-	createQueue(queue_b, 500);
+	createQueue(a, 500);
+	createQueue(b, 500);
 
-	preprocess(argc, argv, queue_a);
-	ra(queue_a);
-	pa(queue_b, queue_a);
-	int curr = queue_a->rear;
-	int	iter = queue_a->size;
-	while (iter)
-	{
-		printf("%d\n", queue_a->elem[curr]);
-		curr = (curr - 1 + queue_a->size) % queue_a->size;
-		iter--;
-	}
-	printf("size: %d\n", queue_a->size);
+	preprocess(argc, argv, a);
+	
+	pb(a, b);
+	pb(a, b);
+	pb(a, b);
+	pb(a, b);
+	pb(a, b);
+	rrb(b);
+	printStacks(a, b);
 	return (0);
 }
