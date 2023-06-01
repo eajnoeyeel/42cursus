@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/yeolee2/Desktop/42cursus/push_swap/push_swap",
-			"args": ["1", "2", "3", "4", "5"],
+			"args": ["19", "8"],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],

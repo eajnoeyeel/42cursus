@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/05/31 05:54:38 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/01 01:10:08 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,11 @@ long long	pop(t_stack *cq)
 void	preprocess(int argc, char *argv[], t_stack *cq)
 {
 	int	i;
-	int	j;
 
 	i = argc - 1;
 	while (i > 0)
 	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] != ' ')
-				push(ft_atoi(&argv[i][j]), cq);
-			j++;
-		}
+		push(ft_atoi(argv[i]), cq);
 		i--;
 	}
 }
@@ -216,7 +209,7 @@ void	printStacks(t_stack *a, t_stack *b)
 		if (iter <= a->size)
 			ft_printf("%d", a->elem[(a->fore - 1 + iter) % a->size]);
 		else
-			ft_printf(" ");
+			ft_printf("   ");
 		ft_printf(" ");
 		if (iter <= b->size)
 			ft_printf("%d", b->elem[(b->fore - 1 + iter) % b->size]);
@@ -225,8 +218,8 @@ void	printStacks(t_stack *a, t_stack *b)
 		ft_printf("\n");
 		iter--;
 	}
-	ft_printf("_ _\n");
-	ft_printf("a b\n");
+	ft_printf("_     _\n");
+	ft_printf("a     b\n");
 }
 
 #include <stdio.h>
@@ -244,12 +237,12 @@ int main(int argc, char *argv[])
 
 	preprocess(argc, argv, a);
 	
-	pb(a, b);
-	pb(a, b);
-	pb(a, b);
-	pb(a, b);
-	pb(a, b);
-	rrb(b);
+	// pb(a, b);
+	// pb(a, b);
+	// pb(a, b);
+	// pb(a, b);
+	// pb(a, b);
+	// rrb(b);
 	printStacks(a, b);
 	return (0);
 }
