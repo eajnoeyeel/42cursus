@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 22:23:53 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/03/30 23:02:38 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/04/01 19:02:55 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/04/03 04:13:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2) 
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	idx;
 	char	*res;

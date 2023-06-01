@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 19:02:55 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/04/02 19:21:16 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/04/03 05:55:59 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/04/03 06:21:09 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
 	len = 0;
-	if(s)
+	if (s)
 		while (s[len])
 			len++;
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2) 
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	idx;
 	char	*res;
