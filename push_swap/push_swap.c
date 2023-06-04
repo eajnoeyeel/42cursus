@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/01 01:10:08 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/03 08:00:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int isEmpty(t_stack *cq)
 	return (cq->size == 0);
 }
 
-void	createQueue(t_stack *cq, int capacity)
+void	create_stack(t_stack *cq, int capacity)
 {
 	cq->elem = (int *)malloc(capacity * sizeof(int));
 	cq->fore = -1;
@@ -78,7 +78,7 @@ void	preprocess(int argc, char *argv[], t_stack *cq)
 	}
 }
 
-void	destroyQueue(t_stack *cq)
+void	destroy_stack(t_stack *cq)
 {
 	free(cq->elem);
 	free(cq);
@@ -113,7 +113,6 @@ void	sb(t_stack *cq)
 
 void	ss(t_stack *a, t_stack *b)
 {
-	// FIXME: if condition needs to be clarified
 	if (a->size < 2 && b->size < 2)
 		return ;
 	swap(a);
@@ -197,7 +196,7 @@ void	rrr(t_stack *a, t_stack *b)
 	ft_printf("rrr\n");
 }
 
-void	printStacks(t_stack *a, t_stack *b)
+void	print_stacks(t_stack *a, t_stack *b)
 {
 	int	iter;
 
@@ -232,17 +231,11 @@ int main(int argc, char *argv[])
 	a = malloc(sizeof(t_stack));
 	b = malloc(sizeof(t_stack));
 
-	createQueue(a, 500);
-	createQueue(b, 500);
+	create_stack(a, 500);
+	create_stack(b, 500);
 
 	preprocess(argc, argv, a);
-	
-	// pb(a, b);
-	// pb(a, b);
-	// pb(a, b);
-	// pb(a, b);
-	// pb(a, b);
-	// rrb(b);
-	printStacks(a, b);
+	ft_sort(a, b);
+	print_stacks(a, b);
 	return (0);
 }
