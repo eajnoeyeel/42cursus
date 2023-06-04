@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/03 08:00:16 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/05 07:04:50 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,12 @@ void	print_stacks(t_stack *a, t_stack *b)
 	}
 	ft_printf("_     _\n");
 	ft_printf("a     b\n");
+}
+
+void	print_error()
+{
+	write(2, "Error\n", 6);
+	exit(1);
 }
 
 #include <stdio.h>
