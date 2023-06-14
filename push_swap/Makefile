@@ -6,11 +6,11 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/03 08:02:01 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/06/13 05:49:51 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= push_swap.c friday.c
+SRCS		= push_swap.c push_swap_utils.c
 
 OBJS		= ${SRCS:.c=.o}
 

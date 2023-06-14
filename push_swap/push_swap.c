@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/05 07:04:50 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/15 05:48:48 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,40 @@ long long	pop(t_stack *cq)
 	return (element);
 }
 
-void	preprocess(int argc, char *argv[], t_stack *cq)
+char	**parse(int *argc, char *argv[])
 {
-	int	i;
+	int		idx;
+	int		len;
+	char	*str;
+	char	**res;
 
-	i = argc - 1;
-	while (i > 0)
+	idx = 0;
+	len = 0;
+	while (++idx < *argc)
+		len += ft_strlen(argv[idx]) + 1;
+	str = (char *)ft_calloc(len, sizeof(char));
+	idx = 1;
+	while (argv[idx])
 	{
-		push(ft_atoi(argv[i]), cq);
-		i--;
+		str = ft_strcat(str, argv[idx]);
+		if (idx != *argc - 1)
+			str = ft_strcat(str, " ");
+		idx++;
+	}
+	*argc = ft_wrdcnt(str, ' ');
+	res = ft_split(str, ' ');
+	return (res);
+}
+
+void	preprocess(int len, char **res, t_stack *cq)
+{
+	int	idx;
+
+	idx = len - 1;
+	while (idx >= 0)
+	{
+		push(ft_atoi(res[idx]), cq);
+		idx--;
 	}
 }
 
@@ -91,8 +116,8 @@ void	swap(t_stack *cq)
 	if (cq->size < 2)
 		return ;
 	temp = cq->elem[cq->rear];
-	cq->elem[cq->rear] = cq->elem[(cq->rear - 1 + cq->capa) % cq->capa];
-	cq->elem[(cq->rear - 1 + cq->capa) % cq->capa] = temp;
+	cq->elem[cq->rear] = cq->elem[(cq->rear - 1 + cq->size) % cq->size];
+	cq->elem[(cq->rear - 1 + cq->size) % cq->size] = temp;
 }
 
 void	sa(t_stack *cq)
@@ -144,6 +169,9 @@ void	pb(t_stack *a, t_stack *b)
 
 void	rotate(t_stack *cq)
 {
+	int	element;
+
+	element = pop(cq);
 	if (cq->size < 2)
 		return ;
 	cq->fore = cq->rear;
@@ -221,16 +249,11 @@ void	print_stacks(t_stack *a, t_stack *b)
 	ft_printf("a     b\n");
 }
 
-void	print_error()
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-
 #include <stdio.h>
 
 int main(int argc, char *argv[])
 {
+	char	**res;
 	t_stack *a;
 	t_stack	*b;
 
@@ -239,9 +262,9 @@ int main(int argc, char *argv[])
 
 	create_stack(a, 500);
 	create_stack(b, 500);
-
-	preprocess(argc, argv, a);
-	ft_sort(a, b);
+	res = parse(&argc, argv);
+	preprocess(argc, res, a);
+	a_to_b(a, b, a->size);
 	print_stacks(a, b);
 	return (0);
 }
