@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:21:07 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/19 01:20:12 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/19 03:45:18 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,23 @@ void	find_pivot(int **arr, int count, int *upper, int *lower)
 	bubble_sort_arr(*arr, count);
 	*lower = (*arr)[count / 3];
 	*upper = (*arr)[count /3 * 2];
+}
+
+int	*ft_intdup(t_stack *stack, int count)
+{
+	t_node	*tmp;
+	int		idx;
+	int		*res;
+
+	res = (int *)malloc(sizeof(int) * count);
+	idx = 0;
+	tmp = stack->head;
+	while (count--)
+	{
+		res[idx] = tmp->data;
+		tmp = tmp->next;
+	}
+	return (res);
 }
 
 void	b_to_a(t_stack *a, t_stack *b, int count)
