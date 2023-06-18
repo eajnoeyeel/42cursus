@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/13 05:49:51 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/06/16 04:43:44 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,9 @@ all		:	${NAME}
 
 %.o		:	%.c
 			@echo "${YELLOW}Compiling..."
-			@$(CC) $(CFLAGS) -c -o $@ $<
 
 ${NAME} :	${OBJS}
+			@$(CC) $(CFLAGS) -c -o $@ $<
 			@make all -C $(LIBFT)/
 			@$(CC) $(CFLAGS) -o $@ $^ ${LIBFT}/${ARCHIVE}
 			@echo "${GREEN}Compilation done"
