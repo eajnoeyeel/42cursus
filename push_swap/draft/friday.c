@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:21:07 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/21 19:02:58 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/21 19:19:52 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 	{
 		// Largest
 		// ft_printf("a->tail->data: %d\n", a->tail->data);
-		if (a->tail->data > upper)
+		if (a->tail->data >= upper)
 		{
 			rotate(a);
 			iota.head++;
@@ -296,7 +296,7 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 			push(a, b);
 			iota.body++;
 			// Middle
-			if (b->tail->data > lower)
+			if (b->tail->data >= lower)
 			{
 				rotate(b);
 				iota.tail++;
@@ -312,4 +312,4 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 	a_to_b(a, b, iota.head);
 	b_to_a(a, b, iota.tail);
 	b_to_a(a, b, iota.body - iota.tail);
-}
+} 
