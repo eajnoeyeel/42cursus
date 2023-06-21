@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/19 03:45:31 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/20 08:15:39 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ void	reverse(t_stack *stack)
 	int temp;
 
 	if (stack->name == 'a')
-		ft_printf("ra\n");
+		ft_printf("rra\n");
 	else
-		ft_printf("rb\n");
+		ft_printf("rrb\n");
 	if (stack->size < 2)
 		return ;
 	temp = stack->head->data;
@@ -193,9 +193,9 @@ void	print_stacks(t_stack *a, t_stack *b)
 	ft_printf("a    b\n");
 }
 
-void	init_stack(t_stack *stack)
+void	init_stack(t_stack *stack, char name)
 {
-	stack->name = 'a';
+	stack->name = name;
 	stack->head = NULL;
 	stack->tail = NULL;
 	stack->size = 0;
@@ -210,7 +210,7 @@ void	destroy_stack(t_stack **stack)
 	while (goal->head)
 	{
 		temp = goal->head;
-		free(temp->data);
+		// free(temp->data);
 		goal->head = goal->head->next;
 		free(temp);
 	}
@@ -225,7 +225,7 @@ void	preprocess(int len, char **res, t_stack *stack)
 	idx = 0;
 	while (idx < len)
 	{
-		push_back(stack, ft_atoi(res[idx]));
+		push_front(stack, ft_atoi(res[idx]));
 		idx++;
 	}
 }
@@ -297,12 +297,46 @@ int main(int argc, char *argv[])
 	a = malloc(sizeof(t_stack));
 	b = malloc(sizeof(t_stack));
 
-	init_stack(a);
-	init_stack(b);
+	init_stack(a, 'a');
+	init_stack(b, 'b');
 
 	res = parse(&argc, argv);
 	preprocess(argc, res, a);
 	a_to_b(a, b, a->size);
-	print_stacks(a, b);
+	//print_stacks(a, b);
 	return (0);
 }
+
+// int	ft_strcmp(char *s1, char *s2)
+// {
+// 	if (*s2 == '+')
+// 		s2++;
+// 	while (s1 || s2)
+// 	{
+// 		if (*s1 != *s2)
+// 			return (1);
+// 		s1++;
+// 		s2++;
+// 	}
+// 	return (0);
+// }
+
+// void asd{
+// 	while (i < ac)
+// 	{
+// 		tmp = ft_split(av[i], " ");
+// 		while (tmp[j])
+// 		{
+// 			ret = atoi(tmp);
+// 			if (itoa(ret) != tmp[j])
+// 			{
+// 				free_split()
+// 				return ;
+// 			}
+// 			i++;
+// 			push ret;
+// 		}
+// 		freesplit();
+// 	}
+	
+// }

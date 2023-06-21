@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 02:54:00 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/15 05:48:48 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/20 08:01:06 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,6 @@ int main(int argc, char *argv[])
 	res = parse(&argc, argv);
 	preprocess(argc, res, a);
 	a_to_b(a, b, a->size);
-	print_stacks(a, b);
+	//print_stacks(a, b);
 	return (0);
 }

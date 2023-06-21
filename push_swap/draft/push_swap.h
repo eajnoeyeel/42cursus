@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/19 04:09:38 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/20 05:03:36 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_iota
 char	**parse(int *argc, char *argv[]);
 int		ft_atoi(const char *str);
 void	destroy_stack(t_stack **stack);
-void	init_stack(t_stack *stack);
+void	init_stack(t_stack *stack, char name);
 void	preprocess(int len, char **res, t_stack *stack);
 void	print_error(void);
 void	print_stacks(t_stack *a, t_stack *b);
@@ -59,6 +59,7 @@ void	b_to_a(t_stack *a, t_stack *b, int count);
 void	bubble_sort_arr(int *arr, int count);
 void	find_pivot(int **arr, int count, int *upper, int *lower);
 void	init_iota(t_iota *iota);
+int		*ft_intdup(t_stack *stack, int count);
 void	rev_sort_three_elem(int *arr, t_stack *b, int count);
 void	rev_sort_two_elem(int *arr, t_stack *b);
 void	sort_three_elem(int *arr, t_stack *a, int count);

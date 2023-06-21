@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 04:29:13 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/15 03:53:15 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/20 07:48:05 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	b_to_a(t_stack *a, t_stack *b, int count)
 	t_iota	iota;
 
 	arr = ft_intdup(a->elem, a->rear, a->size, count);
-	if (count <= 3)
+	if (count <= 2)
 	{
 		// TODO: Sort 3 in reversed order
 		rev_sort_three_elem(arr, b, count);
