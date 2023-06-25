@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/20 05:03:36 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/23 22:10:11 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_node
 typedef struct	s_stack
 {
 	int				size;
+	int				flag;
 	char			name;
 	struct s_node	*head;
 	struct s_node	*tail;
@@ -60,16 +61,18 @@ void	bubble_sort_arr(int *arr, int count);
 void	find_pivot(int **arr, int count, int *upper, int *lower);
 void	init_iota(t_iota *iota);
 int		*ft_intdup(t_stack *stack, int count);
-void	rev_sort_three_elem(int *arr, t_stack *b, int count);
+void	rev_sort_top_three(int *arr, t_stack *b, int count);
 void	rev_sort_two_elem(int *arr, t_stack *b);
-void	sort_three_elem(int *arr, t_stack *a, int count);
+void	sort_only_three(int *arr, t_stack *a);
 void	sort_two_elem(int *arr, t_stack *a);
 void	swap_arr_elem(int *x, int *y);
+void	reverse_optimize(t_stack *a, t_stack *b, t_iota iota);
 
 /* THE RULES */
 void	push(t_stack *stack1, t_stack *stack2);
 void	rotate(t_stack *stack);
 void	reverse(t_stack *stack);
 void	swap(t_stack *stack);
+void	rrr(t_stack *a, t_stack *b);
 
 #endif

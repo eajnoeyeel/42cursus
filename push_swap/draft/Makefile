@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/19 05:46:07 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/06/21 21:07:05 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS		= ${SRCS:.c=.o}
 
 CC			= cc
 
-CFLAGS		= -g -Wall -Wextra -Werror
+CFLAGS		= -g3 -Wall -Wextra -Werror -fsanitize=address
 
 NAME        = push_swap
 

@@ -6,50 +6,50 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:21:07 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/21 19:19:52 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/25 21:37:24 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	sort_three_elem(int *arr, t_stack *a, int count)
-{
-	// for (int idx = 0; idx < count; idx++)
-	// 	printf("arr[%d]: %d\n", idx, arr[idx]);
-	if (count == 1)
-		return ;
-	if (count == 2)
-	{
-		sort_two_elem(arr, a);
-		return ;
-	}
-	if (a->size < 3)
-		return ;
-	// 1 2 3
-	if (arr[0] <= arr[1] && arr[1] <= arr[2])
-		return ;
-	else if (arr[0] >= arr[1] && arr[0] >= arr[2])
-	{
-		// Elements need to be reversed
-		swap(a);
-		rotate(a);
-		swap(a);
-		reverse(a);
-		if (arr[0] >= arr[2])
-			swap(a);
-	}
-	else if (arr[0] <= arr[1] && arr[1] >= arr[2])
-	{
-		rotate(a);
-		swap(a);
-		reverse(a);
-		if (arr[0] >= arr[2])
-			swap(a);
-	}
-	else if (arr[2] >= arr[1] && arr[2] >= arr[0])
-		swap(a);
-}
+// void	sort_three_elem(int *arr, t_stack *a, int count)
+// {
+// 	// for (int idx = 0; idx < count; idx++)
+// 	// 	printf("arr[%d]: %d\n", idx, arr[idx]);
+// 	if (count == 1)
+// 		return ;
+// 	if (count == 2)
+// 	{
+// 		sort_two_elem(arr, a);
+// 		return ;
+// 	}
+// 	if (a->size < 3)
+// 		return ;
+// 	// 1 2 3
+// 	if (arr[0] <= arr[1] && arr[1] <= arr[2])
+// 		return ;
+// 	else if (arr[0] >= arr[1] && arr[0] >= arr[2])
+// 	{
+// 		// Elements need to be reversed
+// 		swap(a);
+// 		rotate(a);
+// 		swap(a);
+// 		reverse(a);
+// 		if (arr[0] >= arr[2])
+// 			swap(a);
+// 	}
+// 	else if (arr[0] <= arr[1] && arr[1] >= arr[2])
+// 	{
+// 		rotate(a);
+// 		swap(a);
+// 		reverse(a);
+// 		if (arr[0] >= arr[2])
+// 			swap(a);
+// 	}
+// 	else if (arr[2] >= arr[1] && arr[2] >= arr[0])
+// 		swap(a);
+// }
 
 // int	t_d(t_stack *stack)
 // {
@@ -94,19 +94,45 @@ void	sort_three_elem(int *arr, t_stack *a, int count)
 // 	}
 // }
 
-void	rev_sort_three_elem(int *arr, t_stack *b, int count)
+void	rev_sort_only_three(int *arr, t_stack *b)
 {
-	// for (int idx = 0; idx < count; idx++)
-	// 	printf("arr[%d]: %d\n", idx, arr[idx]);
-	if (count == 1)
-		return ;
-	if (count == 2)
-	{
-		rev_sort_two_elem(arr, b);
-		return ;
-	}
+	// 3 2 1
 	if (arr[0] >= arr[1] && arr[1] >= arr[2])
 		return ;
+	else if (arr[0] <= arr[1] && arr[0] <= arr[2])
+    {
+        // Elements need to be reversed
+        // 1 3 2
+        rotate(b);
+		// 1 2 3
+        if (arr[1] <= arr[2])
+            swap(b);
+    }
+    else if (arr[0] >= arr[1] && arr[1] <= arr[2])
+    {
+        // 2 1 3
+        reverse(b);
+        if (arr[0] >= arr[2])
+            // 3 1 2
+            swap(b);
+    }
+	// 2 3 1
+    else
+        swap(b);
+}
+
+void	rev_sort_top_three(int *arr, t_stack *b, int count)
+{
+	if (count < 3)
+	{
+		if (count == 2)
+			rev_sort_two_elem(arr, b);
+		return ;
+	}
+	// 3 2 1
+	if (arr[0] >= arr[1] && arr[1] >= arr[2])
+		return ;
+	// 1 3 2
 	else if (arr[0] <= arr[1] && arr[0] <= arr[2])
 	{
 		// Elements need to be reversed
@@ -114,23 +140,29 @@ void	rev_sort_three_elem(int *arr, t_stack *b, int count)
 		rotate(b);
 		swap(b);
 		reverse(b);
+		// 1 2 3
 		if (arr[1] <= arr[2])
 			swap(b);
 	}
+	// 3 1 2
 	else if (arr[0] >= arr[1] && arr[1] <= arr[2])
 	{
 		rotate(b);
 		swap(b);
 		reverse(b);
+		// 2 1 3
 		if (arr[0] <= arr[2])
 			swap(b);
 	}
+	// 2 3 1
 	else
 		swap(b);
 }
 
 void	sort_two_elem(int *arr, t_stack *a)
 {
+	if (a->size < 2)
+		return ;
 	if (arr[0] > arr[1])
 		swap(a);
 	return ;
@@ -138,6 +170,8 @@ void	sort_two_elem(int *arr, t_stack *a)
 
 void	rev_sort_two_elem(int *arr, t_stack *b)
 {
+	if (b->size < 2)
+		return ;
 	if (arr[0] < arr[1])
 		swap(b);
 	return ;
@@ -188,8 +222,10 @@ void	bubble_sort_arr(int *arr, int count)
 void	find_pivot(int **arr, int count, int *upper, int *lower)
 {
 	bubble_sort_arr(*arr, count);
-	*lower = (*arr)[(count) / 3];
-	*upper = (*arr)[(count) / 3 * 2];
+	// *lower = (*arr)[(count + 1) / 3 - 1];
+	// *upper = (*arr)[(count + 1) / 3 * 2 - 1];
+	*lower = (*arr)[count / 3];
+	*upper = (*arr)[count / 3 * 2];
 }
 
 int	*ft_intdup(t_stack *stack, int count)
@@ -200,9 +236,11 @@ int	*ft_intdup(t_stack *stack, int count)
 
 	// ft_printf("count: %d\n", count);
 	res = (int *)malloc(sizeof(int) * count);
+	if (!res)
+		return (NULL);
 	idx = 0;
 	tmp = stack->tail;
-	while (count-- && tmp)
+	while (count--)
 	{
 		res[idx] = tmp->data;
 		tmp = tmp->prev;
@@ -211,18 +249,55 @@ int	*ft_intdup(t_stack *stack, int count)
 	return (res);
 }
 
+void	reverse_optimize(t_stack *a, t_stack *b, t_iota iota)
+{
+	int	idx;
+
+	idx = -1;
+	if (a->flag)
+	{
+		if (iota.head < iota.tail)
+		{
+			while (++idx < iota.head)
+				rrr(a, b);
+			while (idx++ < iota.tail)
+				reverse(b);
+		}
+		else
+		{
+			
+			while (++idx < iota.tail)
+				rrr(a, b);
+			while (idx++ < iota.head)
+				reverse(a);
+		}
+	}
+	else
+	{
+		while (++idx < iota.tail)
+			reverse(b);
+	}
+}
+
 void	b_to_a(t_stack *a, t_stack *b, int count)
 {
-	int		idx;
+	// int		idx;
 	int		upper;
 	int		lower;
 	int		*arr;
 	t_iota	iota;
 
 	arr = ft_intdup(b, count);
-	if (count <= 2)
+	// if (b->size == 3)
+	// {
+	// 	rev_sort_only_three(arr, b);
+	// 	while (count--)
+	// 		push(b, a);
+	// 	return ;	
+	// }
+	if (count <= 3)
 	{
-		rev_sort_two_elem(arr, b);
+		rev_sort_top_three(arr, b, count);
 		while (count--)
 			push(b, a);
 		return ;
@@ -234,10 +309,10 @@ void	b_to_a(t_stack *a, t_stack *b, int count)
 	{
 		// ft_printf("b->tail->data: %d\n", b->tail->data);
 		// Smallest
-		if (b->tail->data <= lower)
+		if (b->tail->data < lower)
 		{
 			rotate(b);
-			iota.head++;
+			iota.tail++;
 		}
 		// Everything bigger than the lower pivot
 		else
@@ -245,37 +320,121 @@ void	b_to_a(t_stack *a, t_stack *b, int count)
 			push(b, a);
 			iota.body++;
 			// Middle
-			if (a->tail->data <= upper)
+			if (a->tail->data < upper)
 			{
 				rotate(a);
-				iota.tail++;
+				iota.head++;
 			}
 		}
 	}
 	// Largest
-	a_to_b(a, b, iota.body - iota.tail);
-	idx = -1;
-	while (++idx < iota.tail)
-		reverse(a);
-	idx = -1;
-	while (++idx < iota.head)
-		reverse(b);
-	a_to_b(a, b, iota.tail);
-	b_to_a(a, b, iota.head);
+	a_to_b(a, b, iota.body - iota.head);
+	// idx = -1;
+	// while (++idx < iota.head)
+	// 	reverse(a);
+	// idx = -1;
+	// while (++idx < iota.tail)
+	// 	reverse(b);
+	reverse_optimize(a, b, iota);
+	a_to_b(a, b, iota.head);
+	b_to_a(a, b, iota.tail);
+}
+
+void    sort_only_three(int *arr, t_stack *a)
+{
+    // for (int idx = 0; idx < count; idx++)
+    //  printf("arr[%d]: %d\n", idx, arr[idx]);
+    // if (count < 3)
+    // {
+    //     if (count == 2)
+    //         sort_two_elem(arr, a);
+    //     return ;
+    // }
+    // if (a->size < 3)
+    //  return ;
+    // 1 2 3
+    if (arr[0] <= arr[1] && arr[1] <= arr[2])
+        return ;
+    else if (arr[0] >= arr[1] && arr[0] >= arr[2])
+    {
+        // Elements need to be reversed
+        // 3 1 2
+        rotate(a);
+        if (arr[1] >= arr[2])
+            // 3 2 1
+            swap(a);
+    }
+    else if (arr[0] <= arr[1] && arr[1] >= arr[2])
+    {
+        // 2 3 1
+        reverse(a);
+        if (arr[0] <= arr[2])
+            // 1 3 2
+            swap(a);
+    }
+	// 2 1 3
+    else
+        swap(a);
+}
+
+void    sort_top_three(int *arr, t_stack *a, int count)
+{
+    // for (int idx = 0; idx < count; idx++)
+    //  printf("arr[%d]: %d\n", idx, arr[idx]);
+    if (count < 3)
+    {
+        if (count == 2)
+            sort_two_elem(arr, a);
+        return ;
+    }
+    // 1 2 3
+    if (arr[0] <= arr[1] && arr[1] <= arr[2])
+        return ;
+    else if (arr[0] >= arr[1] && arr[0] >= arr[2])
+    {
+        // Elements need to be reversed
+        // 3 1 2
+        swap(a);
+        rotate(a);
+        swap(a);
+        reverse(a);
+        if (arr[1] >= arr[2])
+            // 3 2 1
+            swap(a);
+    }
+    else if (arr[0] <= arr[1] && arr[1] >= arr[2])
+    {
+        // 1 3 2
+        rotate(a);
+        swap(a);
+        reverse(a);
+        if (arr[0] >= arr[2])
+            // 2 3 1
+            swap(a);
+    }
+	// 2 1 3
+    else
+        swap(a);
 }
 
 void	a_to_b(t_stack *a, t_stack *b, int count)
 {
-	int		idx;
+	// int		idx;
 	int		upper;
 	int		lower;
 	int		*arr;
 	t_iota	iota;
 
 	arr = ft_intdup(a, count);
+	// if (a->size == 3)
+	// {
+	// 	sort_only_three(arr, a);
+	// 	return ;
+	// }
 	if (count <= 3)
 	{
-		sort_three_elem(arr, a, count);
+		sort_top_three(arr, a, count);
+		a->flag = 1;
 		return ;
 	}
 	find_pivot(&arr, count, &upper, &lower);
@@ -285,7 +444,7 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 	{
 		// Largest
 		// ft_printf("a->tail->data: %d\n", a->tail->data);
-		if (a->tail->data >= upper)
+		if (a->tail->data > upper)
 		{
 			rotate(a);
 			iota.head++;
@@ -296,20 +455,15 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 			push(a, b);
 			iota.body++;
 			// Middle
-			if (b->tail->data >= lower)
+			if (b->tail->data > lower)
 			{
 				rotate(b);
 				iota.tail++;
 			}
 		}
 	}
-	idx = -1;
-	while (++idx < iota.tail)
-		reverse(b);
-	idx = -1;
-	while (++idx < iota.head)
-		reverse(a);
+	reverse_optimize(a, b, iota);
 	a_to_b(a, b, iota.head);
 	b_to_a(a, b, iota.tail);
 	b_to_a(a, b, iota.body - iota.tail);
-} 
+}

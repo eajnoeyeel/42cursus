@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/15 02:50:56 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/23 22:10:11 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void		reverse(t_stack *cq);
 void		rotate(t_stack *cq);
 
 /* SORT OPERATIONS */
-void		sort_three_elem(int *arr, t_stack *a, int count);
-void		rev_sort_three_elem(int *arr, t_stack *b, int count);
+void		sort_only_three(int *arr, t_stack *a, int count);
+void		rev_sort_top_three(int *arr, t_stack *b, int count);
 void		sort_two_elem(int *arr, t_stack *a);
 void		rev_sort_two_elem(int *arr, t_stack *b);
 void		init_iota(t_iota *iota);

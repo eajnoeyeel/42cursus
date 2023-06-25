@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 04:29:13 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/20 07:48:05 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/21 21:28:59 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sort_three_elem(int *arr, t_stack *a, int count)
 		sa(a);
 }
 
-void	rev_sort_three_elem(int *arr, t_stack *b, int count)
+void	rev_sort_top_three(int *arr, t_stack *b, int count)
 {
 	if (count == 2)
 	{
@@ -151,7 +151,7 @@ void	b_to_a(t_stack *a, t_stack *b, int count)
 	if (count <= 2)
 	{
 		// TODO: Sort 3 in reversed order
-		rev_sort_three_elem(arr, b, count);
+		rev_sort_top_three(arr, b, count);
 		while (count--)
 			pa(a, b);
 		return ;

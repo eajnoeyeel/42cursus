@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/20 08:15:39 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/25 23:43:20 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,24 @@ void	reverse(t_stack *stack)
 
 	if (stack->name == 'a')
 		ft_printf("rra\n");
-	else
+	else if (stack->name == 'b')
 		ft_printf("rrb\n");
 	if (stack->size < 2)
 		return ;
 	temp = stack->head->data;
 	pop_front(stack);
 	push_back(stack, temp);
+}
+
+void	rrr(t_stack *a, t_stack *b)
+{
+	a->name = 'z';
+	b->name = 'z';
+	reverse(a);
+	reverse(b);
+	a->name = 'a';
+	b->name = 'b';
+	ft_printf("rrr\n");
 }
 
 void	print_stacks(t_stack *a, t_stack *b)
@@ -195,10 +206,11 @@ void	print_stacks(t_stack *a, t_stack *b)
 
 void	init_stack(t_stack *stack, char name)
 {
+	stack->flag = 0;
+	stack->size = 0;
 	stack->name = name;
 	stack->head = NULL;
 	stack->tail = NULL;
-	stack->size = 0;
 }
 
 void	destroy_stack(t_stack **stack)
@@ -218,6 +230,76 @@ void	destroy_stack(t_stack **stack)
 	*stack = NULL;
 }
 
+void	print_error(void)
+{
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
+int	ft_atoi(const char *str, t_stack *stack)
+{
+	int			idx;
+	int			neg;
+	long long	res;
+	t_node		*ptr;
+
+	idx = 0;
+	res = 0;
+	neg = 1;
+	while ((str[idx] >= 9 && str[idx] <= 13) || str[idx] == 32)
+		idx++;
+	if (str[idx] == '-' || str[idx] == '+')
+	{
+		if (str[idx] == '-')
+			neg *= -1;
+		idx++;
+	}
+	if (str[idx] < '0' || str[idx] > '9')
+		print_error();
+	while (str[idx] >= '0' && str[idx] <= '9')
+	{
+		res = res * 10 + str[idx] - '0';
+		idx++;
+		if (!str[idx] || neg * res > 2147483647 || neg * res < -2147483648)
+			print_error();
+	}
+	ptr = stack->head;
+	while (ptr)
+	{
+		if (ptr->data == res)
+			print_error();
+		ptr = ptr->next;
+	}
+	push_back(stack, neg * res);
+	return (neg * res);
+}
+
+int	check_digit(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				print_error();
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+void	check_error(char **str)
+{
+	if (check_digit(str))
+	return (1);
+}
+
 void	preprocess(int len, char **res, t_stack *stack)
 {
 	int	idx;
@@ -225,6 +307,7 @@ void	preprocess(int len, char **res, t_stack *stack)
 	idx = 0;
 	while (idx < len)
 	{
+		if (check_error(res))
 		push_front(stack, ft_atoi(res[idx]));
 		idx++;
 	}
@@ -255,39 +338,6 @@ char	**parse(int *argc, char *argv[])
 	return (res);
 }
 
-void	print_error(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-
-int	ft_atoi(const char *str)
-{
-	int			idx;
-	int			neg;
-	long long	res;
-
-	idx = 0;
-	res = 0;
-	neg = 1;
-	while ((str[idx] >= 9 && str[idx] <= 13) || str[idx] == 32)
-		idx++;
-	if (str[idx] == '-' || str[idx] == '+')
-	{
-		if (str[idx] == '-')
-			neg *= -1;
-		idx++;
-	}
-	while (str[idx] >= '0' && str[idx] <= '9')
-	{
-		res = res * 10 + str[idx] - '0';
-		idx++;
-	}
-	if ( str[idx] || res > 2147483647 || res < -2147483648)
-		print_error();
-	return (neg * res);
-}
-
 int main(int argc, char *argv[])
 {
 	char	**res;
@@ -303,7 +353,12 @@ int main(int argc, char *argv[])
 	res = parse(&argc, argv);
 	preprocess(argc, res, a);
 	a_to_b(a, b, a->size);
-	//print_stacks(a, b);
+	// swap(a);
+	// push(a, b);
+	// push(a, b);
+	// push(a, b);
+	// rrr(a, b);
+	print_stacks(a, b);
 	return (0);
 }
 
