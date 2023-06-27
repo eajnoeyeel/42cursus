@@ -6,299 +6,11 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/25 23:43:20 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/27 05:03:20 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	push_front(t_stack *stack, int content)
-{
-	t_node	*temp;
-	
-	temp = (t_node *)malloc(sizeof(t_stack));
-	temp->data = content;
-	temp->prev = NULL;
-	if (!stack->head)
-	{
-		stack->head = temp;
-		stack->tail = temp;
-		temp->next = NULL;
-	}
-	else
-	{
-		temp->next = stack->head;
-		stack->head->prev = temp;
-		stack->head = temp;
-	}
-	stack->size++;
-}
-
-void	push_back(t_stack *stack, int content)
-{
-	t_node	*temp;
-
-	temp = (t_node *)malloc(sizeof(t_stack));
-	temp->data = content;
-	temp->next = NULL;
-	if (!stack->head)
-	{
-		stack->head = temp;
-		stack->tail = temp;
-		temp->prev = NULL;
-	}
-	else
-	{
-		stack->tail->next = temp;
-		temp->prev = stack->tail;
-		stack->tail = temp;
-	}
-	stack->size++;
-}
-
-void	pop_front(t_stack *stack)
-{
-	t_node	*temp;
-
-	if (!stack->head)
-		return ;
-	else if (stack->size == 1)
-	{
-		free(stack->head);
-		stack->head = NULL;
-		stack->tail = NULL;
-	}
-	else
-	{
-		temp = stack->head;
-		stack->head = stack->head->next;
-		stack->head->prev = NULL;
-		free(temp);
-	}
-	stack->size--;
-}
-
-void	pop_back(t_stack *stack)
-{
-	t_node	*temp;
-
-	if (!stack->head)
-		return ;
-	else if (stack->size == 1)
-	{
-		free(stack->head);
-		stack->head = NULL;
-		stack->tail = NULL;
-	}
-	else
-	{
-		temp = stack->tail;
-		stack->tail = stack->tail->prev;
-		stack->tail->next = NULL;
-		free(temp);
-	}
-	stack->size--;
-}
-
-// push from stack1 to stack2
-void	push(t_stack *stack1, t_stack *stack2)
-{
-	if (!stack1->size)
-		return ;
-	if (stack2->name == 'a')
-		ft_printf("pa\n");
-	else
-		ft_printf("pb\n");
-	push_back(stack2, stack1->tail->data);
-	pop_back(stack1);
-}
-
-void	swap(t_stack *stack)
-{
-	int	old;
-	int	new;
-
-	if (stack->size < 2)
-		return ;
-	if (stack->name == 'a')
-		ft_printf("sa\n");
-	else
-		ft_printf("sb\n");
-	old = stack->tail->data;
-	new = stack->tail->prev->data;
-	pop_back(stack);
-	pop_back(stack);
-	push_back(stack, old);
-	push_back(stack, new);
-}
-
-void	rotate(t_stack *stack)
-{
-	int	temp;
-	
-	if (stack->name == 'a')
-		ft_printf("ra\n");
-	else
-		ft_printf("rb\n");
-	if (stack->size < 2)
-		return ;
-	temp = stack->tail->data;
-	pop_back(stack);
-	push_front(stack, temp);
-}
-
-void	reverse(t_stack *stack)
-{
-	int temp;
-
-	if (stack->name == 'a')
-		ft_printf("rra\n");
-	else if (stack->name == 'b')
-		ft_printf("rrb\n");
-	if (stack->size < 2)
-		return ;
-	temp = stack->head->data;
-	pop_front(stack);
-	push_back(stack, temp);
-}
-
-void	rrr(t_stack *a, t_stack *b)
-{
-	a->name = 'z';
-	b->name = 'z';
-	reverse(a);
-	reverse(b);
-	a->name = 'a';
-	b->name = 'b';
-	ft_printf("rrr\n");
-}
-
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	int	iter;
-
-	iter = a->size;
-	if (iter < b->size)
-		iter = b->size;
-	while (iter)
-	{
-		if (iter <= a->size)
-		{
-			ft_printf("%d ", a->tail->data);
-			a->tail = a->tail->prev;
-		}
-		else
-			ft_printf("   ");
-		ft_printf("   ");
-		if (iter <= b->size)
-		{
-			ft_printf("%d", b->tail->data);
-			b->tail = b->tail->prev;
-		}
-		else
-			ft_printf("   ");
-		ft_printf("\n");
-		iter--;
-	}
-	ft_printf("_    _\n");
-	ft_printf("a    b\n");
-}
-
-void	init_stack(t_stack *stack, char name)
-{
-	stack->flag = 0;
-	stack->size = 0;
-	stack->name = name;
-	stack->head = NULL;
-	stack->tail = NULL;
-}
-
-void	destroy_stack(t_stack **stack)
-{
-	t_stack	*goal;
-	t_node	*temp;
-
-	goal = *stack;
-	while (goal->head)
-	{
-		temp = goal->head;
-		// free(temp->data);
-		goal->head = goal->head->next;
-		free(temp);
-	}
-	free(goal);
-	*stack = NULL;
-}
-
-void	print_error(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-
-int	ft_atoi(const char *str, t_stack *stack)
-{
-	int			idx;
-	int			neg;
-	long long	res;
-	t_node		*ptr;
-
-	idx = 0;
-	res = 0;
-	neg = 1;
-	while ((str[idx] >= 9 && str[idx] <= 13) || str[idx] == 32)
-		idx++;
-	if (str[idx] == '-' || str[idx] == '+')
-	{
-		if (str[idx] == '-')
-			neg *= -1;
-		idx++;
-	}
-	if (str[idx] < '0' || str[idx] > '9')
-		print_error();
-	while (str[idx] >= '0' && str[idx] <= '9')
-	{
-		res = res * 10 + str[idx] - '0';
-		idx++;
-		if (!str[idx] || neg * res > 2147483647 || neg * res < -2147483648)
-			print_error();
-	}
-	ptr = stack->head;
-	while (ptr)
-	{
-		if (ptr->data == res)
-			print_error();
-		ptr = ptr->next;
-	}
-	push_back(stack, neg * res);
-	return (neg * res);
-}
-
-int	check_digit(char **str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				print_error();
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-void	check_error(char **str)
-{
-	if (check_digit(str))
-	return (1);
-}
 
 void	preprocess(int len, char **res, t_stack *stack)
 {
@@ -307,7 +19,6 @@ void	preprocess(int len, char **res, t_stack *stack)
 	idx = 0;
 	while (idx < len)
 	{
-		if (check_error(res))
 		push_front(stack, ft_atoi(res[idx]));
 		idx++;
 	}
@@ -322,6 +33,8 @@ char	**parse(int *argc, char *argv[])
 
 	idx = 0;
 	len = 0;
+	if (check_empty_string(argv))
+		print_error(2);
 	while (++idx < *argc)
 		len += ft_strlen(argv[idx]) + 1;
 	str = (char *)ft_calloc(len, sizeof(char));
@@ -359,6 +72,8 @@ int main(int argc, char *argv[])
 	// push(a, b);
 	// rrr(a, b);
 	print_stacks(a, b);
+	destroy_stack(&a);
+	destroy_stack(&b);
 	return (0);
 }
 

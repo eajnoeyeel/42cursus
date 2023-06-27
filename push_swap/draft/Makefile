@@ -6,11 +6,11 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/21 21:07:05 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/06/27 05:28:01 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= thursday.c friday.c
+SRCS		= thursday.c friday.c deque_operations.c error_utils.c sorting_utils.c stack_operations.c stack_utils.c
 
 OBJS		= ${SRCS:.c=.o}
 

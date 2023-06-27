@@ -5,16 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 18:29:34 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/19 01:45:42 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/06/26 02:19:24 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/06/27 01:31:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "/Users/iyeonjae/Desktop/42Seoul/42cursus/push_swap/draft/push_swap.h"
 
-void	print_error(void)
+void	print_error(int e)
 {
-	write(2, "Error\n", 6);
+	write(e, "Error\n", 6);
 	exit(1);
 }
 
@@ -35,12 +36,14 @@ int	ft_atoi(const char *str)
 			neg *= -1;
 		idx++;
 	}
+	if (str[idx] < '0' || str[idx] > '9')
+		print_error(2);
 	while (str[idx] >= '0' && str[idx] <= '9')
 	{
 		res = res * 10 + str[idx] - '0';
 		idx++;
 	}
-	if ( str[idx] || res > 2147483647 || res < -2147483648)
-		print_error();
+	if (str[idx] || neg * res > 2147483647 || neg * res < -2147483648)
+		print_error(2);
 	return (neg * res);
 }
