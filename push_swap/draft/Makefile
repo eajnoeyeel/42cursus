@@ -6,11 +6,11 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/29 00:47:03 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/06/30 04:26:28 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 	deque.c divide.c error.c main.c operation.c optimization.c pivot.c recursive.c sort.c utils.c
+SRCS		= 	checker.c deque.c divide.c error.c main.c operation.c optimization.c pivot.c recursive.c sort.c utils.c
 
 OBJS		= 	${SRCS:.c=.o}
 

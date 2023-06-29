@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:21:07 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 01:25:51 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 02:52:01 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	*ft_intdup(t_stack *stack, int count)
 		return (NULL);
 	idx = 0;
 	tmp = stack->tail;
-	while (count--)
+	while (tmp && count--)
 	{
 		res[idx] = tmp->data;
 		tmp = tmp->prev;

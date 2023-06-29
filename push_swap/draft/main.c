@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 00:16:16 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 04:35:11 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,21 @@ void	kill(t_stack *a, t_stack *b, char **res)
 	ft_free(res, ft_strlen((char *)res));
 }
 
-int	main(int argc, char *argv[])
-{
-	char	**res;
-	t_stack	*a;
-	t_stack	*b;
+// int	main(int argc, char *argv[])
+// {
+// 	char	**res;
+// 	t_stack	*a;
+// 	t_stack	*b;
 
-	if (argc < 2)
-		return (0);
-	initialize(&a, &b);
-	res = parse(&argc, argv);
-	load_stack_from_args(argc, res, a);
-	a_to_b(a, b, a->size);
-	kill(a, b, res);
-	return (0);
-}
+// 	if (argc < 2)
+// 		return (0);
+// 	initialize(&a, &b);
+// 	res = parse(&argc, argv);
+// 	load_stack_from_args(argc, res, a);
+// 	if (is_sorted(a))
+// 		exit (1);
+// 	a_to_b(a, b, a->size);
+// 	// print_stacks(a, b);
+// 	kill(a, b, res);
+// 	return (0);
+// }

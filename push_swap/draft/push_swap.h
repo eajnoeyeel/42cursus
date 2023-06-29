@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 01:17:36 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 04:26:00 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+# include "libft/get_next_line/get_next_line.h"
 # include <stdlib.h>
 
 typedef struct s_node
@@ -49,7 +50,9 @@ typedef struct s_pivot
 char	**parse(int *argc, char *argv[]);
 int		ft_atoi(const char *str);
 void	destroy_stack(t_stack **stack);
+void	initialize(t_stack **a, t_stack **b);
 void	init_stack(t_stack *stack, char name);
+void	kill(t_stack *a, t_stack *b, char **res);
 void	load_stack_from_args(int len, char **res, t_stack *stack);
 void	print_error(int e);
 void	print_stacks(t_stack *a, t_stack *b);
@@ -84,6 +87,7 @@ int		push(t_stack *stack1, t_stack *stack2);
 void	rotate(t_stack *stack);
 void	reverse(t_stack *stack);
 void	swap(t_stack *stack);
+void	rr(t_stack *a, t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
 
 /* ERROR HANDLING */

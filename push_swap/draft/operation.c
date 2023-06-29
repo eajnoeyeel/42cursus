@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:27:29 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 01:17:18 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 04:45:39 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	push(t_stack *stack1, t_stack *stack2)
 		return (0);
 	if (stack2->name == 'a')
 		ft_printf("pa\n");
-	else
+	else if (stack2->name == 'b')
 		ft_printf("pb\n");
 	push_back(stack2, stack1->tail->data);
 	pop_back(stack1);
@@ -34,7 +34,7 @@ void	swap(t_stack *stack)
 		return ;
 	if (stack->name == 'a')
 		ft_printf("sa\n");
-	else
+	else if (stack->name == 'b')
 		ft_printf("sb\n");
 	old = stack->tail->data;
 	new = stack->tail->prev->data;
@@ -50,7 +50,7 @@ void	rotate(t_stack *stack)
 
 	if (stack->name == 'a')
 		ft_printf("ra\n");
-	else
+	else if (stack->name == 'b')
 		ft_printf("rb\n");
 	if (stack->size < 2)
 		return ;
@@ -74,13 +74,3 @@ void	reverse(t_stack *stack)
 	push_back(stack, temp);
 }
 
-void	rrr(t_stack *a, t_stack *b)
-{
-	a->name = 'z';
-	b->name = 'z';
-	reverse(a);
-	reverse(b);
-	a->name = 'a';
-	b->name = 'b';
-	ft_printf("rrr\n");
-}

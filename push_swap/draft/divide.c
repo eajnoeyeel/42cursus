@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 04:25:22 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 01:32:14 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 04:06:24 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,42 @@ void	a_to_b(t_stack *a, t_stack *b, int count)
 	}
 	recursive_a(a, b, iota);
 }
+
+// void	a_to_b(t_stack *a, t_stack *b, int count)
+// {
+// 	t_iota	iota;
+// 	t_pivot	pivot;
+
+// 	if (preprocess_a(a, count, &pivot))
+// 		return ;
+// 	init_iota(&iota);
+// 	while (count--)
+// 	{
+// 		if (b->flag == 1 && a->tail->data <= pivot.upper)
+// 			rotate(b);
+// 		else if (a->tail->data > pivot.upper && b->flag == 1)
+// 		{
+// 			rr(a, b);
+// 			iota.head++;
+// 		}
+// 		else if (a->tail->data > pivot.upper && b->flag == 0)
+// 		{
+// 			rotate(a);
+// 			iota.head++;
+// 		}
+// 		else
+// 		{
+// 			iota.body += push(a, b);
+// 			if (b->tail->data > pivot.lower)
+// 			{
+// 				b->flag = 1;
+// 				iota.tail++;
+// 			}
+// 			else
+// 				b->flag = 0;
+// 		}
+// 	}
+// 	if (b->flag == 1)
+// 		rotate(b);
+// 	recursive_a(a, b, iota);
+// }
