@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:28:52 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/27 04:31:18 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/28 04:20:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	check_digit(char **str)
 		j = 0;
 		while (str[i][j])
 		{
-			if (!(ft_isdigit(str[i][j]) || str[i][j] == '+' || str[i][j] == '-'))
+			if (!(ft_isdigit(str[i][j])
+				|| str[i][j] == '+' || str[i][j] == '-'))
 				print_error(2);
 			if ((str[i][j] >= 9 && str[i][j] <= 13) || str[i][j] == 32)
 				print_error(2);
@@ -82,7 +83,7 @@ int	check_duplicate(char **str, t_stack *stack)
 {
 	int		idx;
 	t_node	*ptr;
-	
+
 	idx = 0;
 	ptr = stack->head;
 	while (ptr)

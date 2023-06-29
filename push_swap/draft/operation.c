@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_operations.c                                 :+:      :+:    :+:   */
+/*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:27:29 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/27 04:27:54 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 01:17:18 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// push from stack1 to stack2
-void	push(t_stack *stack1, t_stack *stack2)
+int	push(t_stack *stack1, t_stack *stack2)
 {
 	if (!stack1->size)
-		return ;
+		return (0);
 	if (stack2->name == 'a')
 		ft_printf("pa\n");
 	else
 		ft_printf("pb\n");
 	push_back(stack2, stack1->tail->data);
 	pop_back(stack1);
+	return (1);
 }
 
 void	swap(t_stack *stack)
@@ -47,7 +47,7 @@ void	swap(t_stack *stack)
 void	rotate(t_stack *stack)
 {
 	int	temp;
-	
+
 	if (stack->name == 'a')
 		ft_printf("ra\n");
 	else
@@ -61,7 +61,7 @@ void	rotate(t_stack *stack)
 
 void	reverse(t_stack *stack)
 {
-	int temp;
+	int	temp;
 
 	if (stack->name == 'a')
 		ft_printf("rra\n");

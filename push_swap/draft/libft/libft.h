@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:48:45 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/26 02:15:30 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/29 01:34:19 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+char	**ft_free(char **str, size_t len);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strcat(char *dest, char *src);

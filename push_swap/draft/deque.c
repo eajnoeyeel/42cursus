@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:23:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/27 05:27:26 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/28 04:19:40 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	push_front(t_stack *stack, int content)
 {
 	t_node	*temp;
-	
+
 	temp = (t_node *)malloc(sizeof(t_stack));
 	temp->data = content;
 	temp->prev = NULL;

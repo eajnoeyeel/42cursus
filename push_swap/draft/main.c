@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thursday.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/27 05:03:20 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/30 00:16:16 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	preprocess(int len, char **res, t_stack *stack)
+void	load_stack_from_args(int len, char **res, t_stack *stack)
 {
 	int	idx;
 
@@ -48,65 +48,37 @@ char	**parse(int *argc, char *argv[])
 	}
 	*argc = ft_wrdcnt(str, ' ');
 	res = ft_split(str, ' ');
+	free(str);
 	return (res);
 }
 
-int main(int argc, char *argv[])
+void	initialize(t_stack **a, t_stack **b)
 {
-	char	**res;
-	t_stack *a;
-	t_stack *b;
-
-	a = malloc(sizeof(t_stack));
-	b = malloc(sizeof(t_stack));
-
-	init_stack(a, 'a');
-	init_stack(b, 'b');
-
-	res = parse(&argc, argv);
-	preprocess(argc, res, a);
-	a_to_b(a, b, a->size);
-	// swap(a);
-	// push(a, b);
-	// push(a, b);
-	// push(a, b);
-	// rrr(a, b);
-	print_stacks(a, b);
-	destroy_stack(&a);
-	destroy_stack(&b);
-	return (0);
+	*a = (t_stack *)malloc(sizeof(t_stack));
+	*b = (t_stack *)malloc(sizeof(t_stack));
+	init_stack(*a, 'a');
+	init_stack(*b, 'b');
 }
 
-// int	ft_strcmp(char *s1, char *s2)
-// {
-// 	if (*s2 == '+')
-// 		s2++;
-// 	while (s1 || s2)
-// 	{
-// 		if (*s1 != *s2)
-// 			return (1);
-// 		s1++;
-// 		s2++;
-// 	}
-// 	return (0);
-// }
+void	kill(t_stack *a, t_stack *b, char **res)
+{
+	destroy_stack(&a);
+	destroy_stack(&b);
+	ft_free(res, ft_strlen((char *)res));
+}
 
-// void asd{
-// 	while (i < ac)
-// 	{
-// 		tmp = ft_split(av[i], " ");
-// 		while (tmp[j])
-// 		{
-// 			ret = atoi(tmp);
-// 			if (itoa(ret) != tmp[j])
-// 			{
-// 				free_split()
-// 				return ;
-// 			}
-// 			i++;
-// 			push ret;
-// 		}
-// 		freesplit();
-// 	}
-	
-// }
+int	main(int argc, char *argv[])
+{
+	char	**res;
+	t_stack	*a;
+	t_stack	*b;
+
+	if (argc < 2)
+		return (0);
+	initialize(&a, &b);
+	res = parse(&argc, argv);
+	load_stack_from_args(argc, res, a);
+	a_to_b(a, b, a->size);
+	kill(a, b, res);
+	return (0);
+}

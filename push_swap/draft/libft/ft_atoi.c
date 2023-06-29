@@ -6,12 +6,11 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 02:19:24 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/27 01:31:16 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/28 04:16:45 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "/Users/iyeonjae/Desktop/42Seoul/42cursus/push_swap/draft/push_swap.h"
 
 void	print_error(int e)
 {
