@@ -6,17 +6,18 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/30 04:26:28 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/07/05 03:05:47 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 	checker.c deque.c divide.c error.c main.c operation.c optimization.c pivot.c recursive.c sort.c utils.c
+SRCS		= 	preprocess.c deque.c divide.c error.c main.c operation.c\
+				optimization.c pivot.c recursive.c sort.c utils.c
 
 OBJS		= 	${SRCS:.c=.o}
 
 CC			= 	cc
 
-CFLAGS		= 	-g3 -Wall -Wextra -Werror
+CFLAGS		= 	-Wall -Wextra -Werror
 
 NAME        = 	push_swap
 

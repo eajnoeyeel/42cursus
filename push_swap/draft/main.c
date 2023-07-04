@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 04:35:11 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/05 04:03:32 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**parse(int *argc, char *argv[])
 	while (++idx < *argc)
 		len += ft_strlen(argv[idx]) + 1;
 	str = (char *)ft_calloc(len, sizeof(char));
+	if (!str)
+		return (NULL);
 	idx = 1;
 	while (argv[idx])
 	{
@@ -48,14 +50,19 @@ char	**parse(int *argc, char *argv[])
 	}
 	*argc = ft_wrdcnt(str, ' ');
 	res = ft_split(str, ' ');
-	free(str);
+	if (str)
+		free(str);
 	return (res);
 }
 
 void	initialize(t_stack **a, t_stack **b)
 {
 	*a = (t_stack *)malloc(sizeof(t_stack));
+	if (!*a)
+		exit (1);
 	*b = (t_stack *)malloc(sizeof(t_stack));
+	if (!*b)
+		exit (1);
 	init_stack(*a, 'a');
 	init_stack(*b, 'b');
 }
@@ -64,24 +71,31 @@ void	kill(t_stack *a, t_stack *b, char **res)
 {
 	destroy_stack(&a);
 	destroy_stack(&b);
+	// The return value of ft_free is char **
 	ft_free(res, ft_strlen((char *)res));
 }
 
-// int	main(int argc, char *argv[])
-// {
-// 	char	**res;
-// 	t_stack	*a;
-// 	t_stack	*b;
+void	check_leaks(void)
+{
+	system("leaks -- push_swap");
+}
 
-// 	if (argc < 2)
-// 		return (0);
-// 	initialize(&a, &b);
-// 	res = parse(&argc, argv);
-// 	load_stack_from_args(argc, res, a);
-// 	if (is_sorted(a))
-// 		exit (1);
-// 	a_to_b(a, b, a->size);
-// 	// print_stacks(a, b);
-// 	kill(a, b, res);
-// 	return (0);
-// }
+int	main(int argc, char *argv[])
+{
+	char	**res;
+	t_stack	*a;
+	t_stack	*b;
+
+	if (argc < 2)
+		return (0);
+	initialize(&a, &b);
+	res = parse(&argc, argv);
+	load_stack_from_args(argc, res, a);
+	if (check_error(res, a))
+		exit(1);
+	if (is_sorted(a))
+		exit(1);
+	a_to_b(a, b, a->size);
+	kill(a, b, res);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:27:29 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 04:45:39 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/03 23:17:40 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	reverse(t_stack *stack)
 	pop_front(stack);
 	push_back(stack, temp);
 }
-

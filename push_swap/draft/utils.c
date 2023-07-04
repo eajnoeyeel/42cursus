@@ -6,41 +6,31 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 05:02:47 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 00:00:43 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/05 02:42:02 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stacks(t_stack *a, t_stack *b)
+int	is_sorted(t_stack *a)
 {
-	int	iter;
+	int		flag;
+	t_node	*temp;
 
-	iter = a->size;
-	if (iter < b->size)
-		iter = b->size;
-	while (iter)
+	flag = 0;
+	temp = a->tail;
+	while (temp->prev)
 	{
-		if (iter <= a->size)
+		if (temp->data > temp->prev->data)
 		{
-			ft_printf("%d ", a->tail->data);
-			a->tail = a->tail->prev;
+			flag = 1;
+			break ;
 		}
-		else
-			ft_printf("   ");
-		ft_printf("   ");
-		if (iter <= b->size)
-		{
-			ft_printf("%d", b->tail->data);
-			b->tail = b->tail->prev;
-		}
-		else
-			ft_printf("   ");
-		ft_printf("\n");
-		iter--;
+		temp = temp->prev;
 	}
-	ft_printf("_    _\n");
-	ft_printf("a    b\n");
+	if (flag)
+		return (0);
+	return (1);
 }
 
 void	init_stack(t_stack *stack, char name)
@@ -64,6 +54,7 @@ void	destroy_stack(t_stack **stack)
 		goal->head = goal->head->next;
 		free(temp);
 	}
-	free(goal);
+	if (goal)
+		free(goal);
 	*stack = NULL;
 }

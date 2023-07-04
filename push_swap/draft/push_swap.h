@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 04:26:00 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/05 02:13:30 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_pivot
 
 /* INITIALIZE STACK */
 char	**parse(int *argc, char *argv[]);
-int		ft_atoi(const char *str);
 void	destroy_stack(t_stack **stack);
 void	initialize(t_stack **a, t_stack **b);
 void	init_stack(t_stack *stack, char name);
@@ -96,5 +95,6 @@ int		check_duplicate(char **str, t_stack *stack);
 int		check_empty_string(char *argv[]);
 int		check_error(char **res, t_stack *stack);
 int		check_invalid_input(char **str);
+int		is_sorted(t_stack *a);
 
 #endif
