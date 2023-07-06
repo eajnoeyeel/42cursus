@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/06 21:27:49 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/06 21:47:50 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ int	main(int argc, char *argv[])
 		exit(1);
 	a_to_b(a, b, a->size);
 	kill(a, b, res);
+	exit(1);
 	return (0);
 }
