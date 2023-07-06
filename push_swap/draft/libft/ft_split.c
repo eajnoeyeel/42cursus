@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:28:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/06 21:52:27 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/06 22:59:59 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ char	**ft_free(char **str, size_t len)
 {
 	size_t	idx;
 
-	idx = 0;
 	if (!str || !*str || !len)
 		return (NULL);
+	idx = 0;
 	while (str[idx] && idx < len)
 	{
-		if (str[idx])
-			free(str[idx]);
+		free(str[idx]);
 		idx++;
 	}
 	free(str);

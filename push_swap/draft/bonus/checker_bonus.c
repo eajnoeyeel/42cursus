@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/07 05:52:06 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/06/30 04:09:26 by yeolee2           #+#    #+#             */
+/*   Updated: 2023/07/07 05:54:06 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 void	load_stack_from_args(int len, char **res, t_stack *stack)
 {
@@ -52,41 +52,37 @@ char	**parse(int *argc, char *argv[])
 	return (res);
 }
 
-void	initialize(t_stack **a, t_stack **b)
+void	initialize_checker(t_stack **a, t_stack **b)
 {
 	*a = (t_stack *)malloc(sizeof(t_stack));
-	if (!*a)
-		exit (1);
 	*b = (t_stack *)malloc(sizeof(t_stack));
-	if (!*b)
-		exit (1);
-	init_stack(*a, 'a');
-	init_stack(*b, 'b');
-}
-
-void	kill(t_stack *a, t_stack *b, char **res)
-{
-	destroy_stack(&a);
-	destroy_stack(&b);
-	ft_free(res, ft_strlen((char *)res));
+	init_stack(*a, 'c');
+	init_stack(*b, 'c');
 }
 
 int	main(int argc, char *argv[])
 {
+	char	*line;
 	char	**res;
 	t_stack	*a;
 	t_stack	*b;
 
 	if (argc < 2)
 		return (0);
-	initialize(&a, &b);
+	initialize_checker(&a, &b);
 	res = parse(&argc, argv);
 	load_stack_from_args(argc, res, a);
-	if (!check_error(res, a))
-		print_error(2);
-	if (is_sorted(a))
-		exit(1);
-	a_to_b(a, b, a->size);
-	kill(a, b, res);
-	return (0);
+	while (1)
+	{
+		line = get_next_line(0);
+		if (!line)
+			break ;
+		print_command(line, a, b);
+		free(line);
+	}
+	if (!is_sorted(a) || b->size)
+		ft_printf("KO\n");
+	else
+		ft_printf("OK\n");
+	exit(0);
 }

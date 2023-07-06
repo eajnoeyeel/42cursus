@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 23:09:19 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/02 23:40:51 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/07/07 00:19:28 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ clean   :
 			@${RM} ${BOBJS} all bonus
 
 fclean  :	clean
-			@${RM} ${NAME}
+			@${RM} ${NAME} ${BOBJS}
 
 re		:	fclean all
 

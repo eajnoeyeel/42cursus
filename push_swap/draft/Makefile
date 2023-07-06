@@ -6,18 +6,27 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 03:50:12 by yeolee2           #+#    #+#              #
-#    Updated: 2023/07/06 21:43:35 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/07/07 05:09:35 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= 	preprocess.c deque.c divide.c error.c main.c operation.c\
 				optimization.c pivot.c recursive.c sort.c utils.c
 
+BONUS		=	bonus/checker_bonus.c bonus/deque_bonus.c bonus/divide_bonus.c\
+				bonus/error_bonus.c bonus/operation_bonus.c bonus/optimization_bonus.c\
+				bonus/pivot_bonus.c bonus/preprocess_bonus.c bonus/recursive_bonus.c\
+				bonus/sort_bonus.c bonus/utils_bonus.c\
+
 OBJS		= 	${SRCS:.c=.o}
+
+BOBJS		=	${BONUS:.c=.o}
 
 CC			= 	cc
 
-CFLAGS		= 	-Wall -Wextra -Werror -g3
+INCLUDES	=	push_swap.h
+
+CFLAGS		= 	-Wall -Wextra -Werror -g3 -I${INCLUDES}
 
 NAME        = 	push_swap
 
@@ -46,19 +55,23 @@ all		:		${NAME}
 ${NAME} :		${OBJS}
 				@make all -C $(LIBFT)/
 				@$(CC) $(CFLAGS) -o $@ $^ ${LIBFT}/${ARCHIVE}
-				@echo "${GREEN}Compilation done"
+				@echo "${GREEN}Mandatory Compilation done"
+
+bonus	:		${BOBJS}
+				@make all -C $(LIBFT)/
+				@$(CC) $(CFLAGS) -o checker $^ ${LIBFT}/${ARCHIVE}
+				@echo "${GREEN}Bonus compilation done"
 
 clean   :
-				@${RM} ${OBJS}
-				@make clean -C ${LIBFT}
+				@${RM} ${OBJS} ${BOBJS}
+				@make fclean -C ${LIBFT}
 				@echo "Object files cleaned✅"
 
 fclean  :		clean
 				@${RM} ${NAME}
-				@${RM} ${LIBFT_LIB}
-				@make fclean -C ${LIBFT}
+				@${RM} checker
 				@echo "Archive files cleaned✅"
-			
+
 re		:		fclean all
 
- .PHONY	:		all re clean .c.o
+ .PHONY	:		all clean fclean re .c.o

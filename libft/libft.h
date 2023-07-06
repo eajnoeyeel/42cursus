@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:48:45 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/02 23:40:04 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/06/29 00:54:29 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
+char	**ft_free(char **str, size_t len);
 char	**ft_split(char const *s, char c);
 void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);

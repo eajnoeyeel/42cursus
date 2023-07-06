@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/06 21:26:51 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/07 03:18:02 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
-# include "libft/get_next_line/get_next_line.h"
 # include <stdlib.h>
 
 typedef struct s_node
@@ -22,7 +21,7 @@ typedef struct s_node
 	int				data;
 	struct s_node	*prev;
 	struct s_node	*next;
-}	t_node;
+}					t_node;
 
 typedef struct s_stack
 {
@@ -31,20 +30,20 @@ typedef struct s_stack
 	char			name;
 	struct s_node	*head;
 	struct s_node	*tail;
-}	t_stack;
+}					t_stack;
 
 typedef struct s_iota
 {
 	int	head;
 	int	body;
 	int	tail;
-}	t_iota;
+}		t_iota;
 
 typedef struct s_pivot
 {
 	int	upper;
 	int	lower;
-}	t_pivot;
+}		t_pivot;
 
 /* INITIALIZE STACK */
 char	**parse(int *argc, char *argv[]);
@@ -95,5 +94,9 @@ void	check_dup(t_stack *stack);
 int		check_empty_string(char *argv[]);
 int		check_error(char **res, t_stack *stack);
 int		is_sorted(t_stack *a);
+
+/* BONUS */
+void	initialize_checker(t_stack **a, t_stack **b);
+void	print_command(char *line, t_stack *a, t_stack *b);
 
 #endif

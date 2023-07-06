@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 23:09:19 by yeolee2           #+#    #+#              #
-#    Updated: 2023/06/30 04:15:19 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/07/07 04:54:40 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ SRCS	=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strle
 			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c\
 
 BONUS	 =	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstdelone_bonus.c\
-			ft_lstclear_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c\
-			ft_lstiter_bonus.c ft_lstmap_bonus.c
+			ft_lstclear_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c\
+			ft_lstadd_back_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c\
 
 OBJS	=	${SRCS:.c=.o}
 
