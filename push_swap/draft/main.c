@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 04:55:38 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/05 04:03:32 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/06 21:27:49 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	main(int argc, char *argv[])
 	initialize(&a, &b);
 	res = parse(&argc, argv);
 	load_stack_from_args(argc, res, a);
-	if (check_error(res, a))
-		exit(1);
+	if (!check_error(res, a))
+		print_error(2);
 	if (is_sorted(a))
 		exit(1);
 	a_to_b(a, b, a->size);

@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 04:28:52 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/06/30 02:18:25 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/06 21:23:32 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_empty_string(char *argv[])
 	return (0);
 }
 
-int	check_digit(char **str)
+void	check_dig(char **str)
 {
 	int	i;
 	int	j;
@@ -47,8 +47,7 @@ int	check_digit(char **str)
 		j = 0;
 		while (str[i][j])
 		{
-			if (!(ft_isdigit(str[i][j])
-				|| str[i][j] == '+' || str[i][j] == '-'))
+			if (!(ft_isdigit(str[i][j]) || str[i][j] == '+' || str[i][j] == '-'))
 				print_error(2);
 			if ((str[i][j] >= 9 && str[i][j] <= 13) || str[i][j] == 32)
 				print_error(2);
@@ -56,53 +55,32 @@ int	check_digit(char **str)
 		}
 		i++;
 	}
-	return (1);
+	return ;
 }
 
-int	check_invalid_input(char **str)
+void	check_dup(t_stack *stack)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
+	t_node	*temp;
+	t_node	*curr;
+	
+	curr = stack->head;
+	while (curr)
 	{
-		j = 0;
-		while (str[i][j])
+		temp = curr->next;
+		while (temp)
 		{
-			if ((str[i][j] >= 9 && str[i][j] <= 13) || str[i][j] == 32)
+			if (curr->data == temp->data)
 				print_error(2);
-			j++;
+			temp = temp->next;
 		}
-		i++;
+		curr = curr->next;
 	}
-	return (1);
 }
 
-int	check_duplicate(char **str, t_stack *stack)
-{
-	int		idx;
-	t_node	*ptr;
-
-	idx = 0;
-	ptr = stack->head;
-	while (ptr)
-	{
-		if (ptr->data == ft_atoi(str[idx]))
-			print_error(2);
-		idx++;
-		ptr = ptr->next;
-	}
-	return (1);
-}
-
+// Return true when the error is checked.
 int	check_error(char **res, t_stack *stack)
 {
-	if (!check_digit(res))
-		return (1);
-	if (!check_duplicate(res, stack))
-		return (1);
-	if (!check_invalid_input(res))
-		return (1);
-	return (0);
+	check_dig(res);
+	check_dup(stack);
+	return (1);
 }

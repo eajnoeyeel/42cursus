@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/05 02:13:30 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/06 21:26:51 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ void	rr(t_stack *a, t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
 
 /* ERROR HANDLING */
-int		check_digit(char **str);
-int		check_duplicate(char **str, t_stack *stack);
+void	check_dig(char **str);
+void	check_dup(t_stack *stack);
 int		check_empty_string(char *argv[]);
 int		check_error(char **res, t_stack *stack);
-int		check_invalid_input(char **str);
 int		is_sorted(t_stack *a);
 
 #endif
