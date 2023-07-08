@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 04:09:26 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/07 05:54:06 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/09 03:37:41 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	main(int argc, char *argv[])
 	initialize_checker(&a, &b);
 	res = parse(&argc, argv);
 	load_stack_from_args(argc, res, a);
+	if (!check_error(res, a))
+		print_error(2);
 	while (1)
 	{
 		line = get_next_line(0);

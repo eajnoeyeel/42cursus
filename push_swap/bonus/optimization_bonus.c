@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 05:29:44 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/07 02:20:15 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/09 03:32:53 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,12 @@ void	reverse_optimize(t_stack *a, t_stack *b, t_iota iota)
 
 void	rr(t_stack *a, t_stack *b)
 {
-	a->name = 'z';
-	b->name = 'z';
 	rotate(a);
 	rotate(b);
-	a->name = 'a';
-	b->name = 'b';
-	ft_printf("rr\n");
 }
 
 void	rrr(t_stack *a, t_stack *b)
 {
-	a->name = 'z';
-	b->name = 'z';
 	reverse(a);
 	reverse(b);
-	a->name = 'a';
-	b->name = 'b';
-	ft_printf("rrr\n");
 }
