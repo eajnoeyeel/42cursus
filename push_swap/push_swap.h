@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 04:24:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/12 20:06:55 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/14 19:42:28 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ void	sort_top_three(int *arr, t_stack *a);
 
 /* THE RULES */
 int		push(t_stack *stack1, t_stack *stack2);
+void	swap(t_stack *stack);
 void	rotate(t_stack *stack);
 void	reverse(t_stack *stack);
-void	swap(t_stack *stack);
+void	ss(t_stack *a, t_stack *b);
 void	rr(t_stack *a, t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
 
@@ -97,6 +98,6 @@ int		is_sorted(t_stack *a);
 
 /* BONUS */
 void	initialize_checker(t_stack **a, t_stack **b);
-void	print_command(char *line, t_stack *a, t_stack *b);
+void	exec_command(char *line, t_stack *a, t_stack *b);
 
 #endif

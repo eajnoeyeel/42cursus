@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 04:09:26 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/12 21:57:56 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/14 19:35:53 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char *argv[])
 		line = get_next_line(0);
 		if (!line)
 			break ;
-		print_command(line, a, b);
+		exec_command(line, a, b);
 		free(line);
 	}
 	if (!is_sorted(a) || b->size)

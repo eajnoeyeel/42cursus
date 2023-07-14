@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 05:29:44 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/07/09 03:32:53 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/07/14 19:41:36 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	rrr(t_stack *a, t_stack *b)
 {
 	reverse(a);
 	reverse(b);
+}
+
+void	ss(t_stack *a, t_stack *b)
+{
+	swap(a);
+	swap(b);
 }
