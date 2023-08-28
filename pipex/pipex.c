@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:37:28 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/08/28 17:06:50 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2023/08/29 03:09:25 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int	main(int argc, char *argv[], char **env)
 	// for (size_t i = 0; i < argc - 3; i++)
 	// 	for (size_t j = 0; arr[i].set[j]; j++)
 	// 		ft_printf("arr[%d].set[idx] = %s\n", i, arr[i].set[j]);
-
 	// TODO: infile and outfile needs to be duplicated
 	create_process(arr, file, argc - 3);
 	return (0);
