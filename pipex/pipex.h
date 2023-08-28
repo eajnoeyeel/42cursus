@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 05:43:40 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/08/22 05:20:53 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2023/08/28 17:00:33 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ typedef struct s_file
 	int	in;
 	int	out;
 }		t_file;
+
+void	parent_process(int infile, int *fd);
+void	create_process(t_cmd *cmd, t_file file, int cnt);
 
 #endif
