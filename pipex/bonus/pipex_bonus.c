@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:37:28 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/08/29 03:43:14 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 02:58:57 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 char	*get_path(char **env)
 {
@@ -111,9 +111,29 @@ t_cmd	*set_cmd(char *path, int argc, char *argv[])
 	return (cmd);
 }
 
-void	check_leaks()
+int	is_here_doc(char *argv)
 {
-	system("leaks --list -- pipex");
+	if (ft_strncmp("here_doc", argv, 8))
+		return (1);
+	return (0);
+}
+
+void	execute_here_doc(int argc, char *argv[], char **env, t_file file)
+{
+	t_cmd	*arr;
+	char	*line;
+
+	line = get_next_line(0);
+	while (line)
+	{
+		if (!ft_strncmp(argv[2], line, ft_strlen(argv[2])))
+			break ;
+		write(file.in, line, ft_strlen(line));
+		free(line);
+	}
+	arr = set_cmd(get_path(env), argc, argv + 1);
+	create_process(arr, file, argc - 4);
+	exit(1);
 }
 
 int	main(int argc, char *argv[], char **env)
@@ -121,14 +141,18 @@ int	main(int argc, char *argv[], char **env)
 	t_cmd	*arr;
 	t_file	file;
 
-	file.in = open(argv[1], O_RDONLY);
-	file.out = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-	arr = set_cmd(get_path(env), argc, argv);
-	// for (size_t i = 0; i < argc - 3; i++)
-	// 	for (size_t j = 0; arr[i].set[j]; j++)
-	// 		ft_printf("arr[%d].set[idx] = %s\n", i, arr[i].set[j]);
-	// TODO: infile and outfile needs to be duplicated
-	create_process(arr, file, argc - 3);
-	check_leaks();
-	return (0);
+	if (is_here_doc(argv[1]))
+	{
+		file.in = open("./here_doc", O_RDWR | O_CREAT | O_EXCL | O_TRUNC, 0644);
+		file.out = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, 0644);
+		execute_here_doc(argc, argv, env, file);
+	}
+	else
+	{
+		file.in = open(argv[1], O_RDONLY);
+		file.out = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		arr = set_cmd(get_path(env), argc, argv);
+		create_process(arr, file, argc - 3);
+		return (0);
+	}
 }

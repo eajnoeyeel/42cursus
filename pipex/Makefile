@@ -6,17 +6,17 @@
 #    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 19:53:56 by yeolee2           #+#    #+#              #
-#    Updated: 2023/08/29 00:19:42 by yeolee2          ###   ########seoul.kr   #
+#    Updated: 2023/09/07 02:20:45 by yeolee2          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= 	pipex.c process.c
 
-# BONUS		=	
+BONUS		=	bonus/pipex_bonus.c bonus/process_bonus.c
 
 OBJS		= 	${SRCS:.c=.o}
 
-# BOBJS		=	${BONUS:.c=.o}
+BOBJS		=	${BONUS:.c=.o}
 
 CC			= 	cc
 
@@ -55,7 +55,7 @@ ${NAME} :		${OBJS}
 
 bonus	:		${BOBJS}
 				@make all -C $(LIBFT)/
-				@$(CC) $(CFLAGS) -o checker $^ ${LIBFT}/${ARCHIVE}
+				@$(CC) $(CFLAGS) -o pipex $^ ${LIBFT}/${ARCHIVE}
 				@echo "${GREEN}Bonus compilation done"
 
 clean   :
