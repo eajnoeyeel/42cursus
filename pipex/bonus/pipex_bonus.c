@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:37:28 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/09/07 02:58:57 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2023/09/18 03:54:28 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_cmd	*set_cmd(char *path, int argc, char *argv[])
 
 int	is_here_doc(char *argv)
 {
-	if (ft_strncmp("here_doc", argv, 8))
+	if (!ft_strcmp("here_doc", argv))
 		return (1);
 	return (0);
 }
@@ -121,17 +121,25 @@ int	is_here_doc(char *argv)
 void	execute_here_doc(int argc, char *argv[], char **env, t_file file)
 {
 	t_cmd	*arr;
+	char	*temp;
 	char	*line;
 
-	line = get_next_line(0);
-	while (line)
+	temp = ft_strjoin(argv[2], "\n");
+	while (1)
 	{
-		if (!ft_strncmp(argv[2], line, ft_strlen(argv[2])))
+		write(1, "heredoc>", 9);
+		line = get_next_line(0);
+		if (!line || !ft_strcmp(temp, line))
+		{
+			free(line);
 			break ;
+		}
 		write(file.in, line, ft_strlen(line));
 		free(line);
 	}
-	arr = set_cmd(get_path(env), argc, argv + 1);
+	free(temp);
+	unlink("./here_doc");
+	arr = set_cmd(get_path(env), argc - 1, &argv[1]);
 	create_process(arr, file, argc - 4);
 	exit(1);
 }

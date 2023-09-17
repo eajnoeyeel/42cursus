@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 19:53:56 by yeolee2           #+#    #+#              #
-#    Updated: 2023/09/07 02:20:45 by yeolee2          ###   ########seoul.kr   #
+#    Updated: 2023/09/12 01:22:33 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ clean   :
 
 fclean  :		clean
 				@${RM} ${NAME}
-				@${RM} checker
+				@${RM} pipex
 				@echo "Archive files cleaned✅"
 
 re		:		fclean all
