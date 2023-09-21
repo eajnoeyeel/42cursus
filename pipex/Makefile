@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 19:53:56 by yeolee2           #+#    #+#              #
-#    Updated: 2023/09/21 16:48:51 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/09/22 01:45:46 by yeolee2          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ CC			= 	cc
 
 INCLUDES	=	pipex.h
 
-CFLAGS		= 	-Wall -Wextra -Werror -g3 -I${INCLUDES}
+BINCLUDES	=	bonus/pipex_bonus.h
+
+CFLAGS		= 	-Wall -Wextra -Werror -g3
 
 NAME        = 	pipex
 
@@ -42,32 +44,36 @@ GREEN		= 	\033[1;92m
 
 MAGENTA		= 	\033[0;95m
 
-all		:		${NAME}
+all			: 	$(NAME)
 
-%.o		:		%.c
-				@echo "${YELLOW}Compiling..."
-				@$(CC) $(CFLAGS) -c -o $@ $<
+%.o			: 	%.c $(INCLUDES)
+				@echo "$(YELLOW)Compiling..."
+				@$(CC) $(CFLAGS) -I$(INCLUDES) -c -o $@ $<
 
-${NAME} :		${OBJS}
-				@make all -C $(LIBFT)/
-				@$(CC) $(CFLAGS) -o $@ $^ ${LIBFT}/${ARCHIVE}
-				@echo "${GREEN}Mandatory Compilation done"
+$(NAME)		: 	$(OBJS) $(LIBFT)/$(ARCHIVE)
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT) -lft
+				@echo "$(GREEN)Mandatory Compilation done"
 
-bonus	:		${BOBJS}
-				@make all -C $(LIBFT)/
-				@$(CC) $(CFLAGS) -o pipex $^ ${LIBFT}/${ARCHIVE}
-				@echo "${GREEN}Bonus compilation done"
+$(BOBJS)	:	$(BINCLUDES)
 
-clean   :
-				@${RM} ${OBJS} ${BOBJS}
-				@make fclean -C ${LIBFT}
+bonus		: 	$(BOBJS) $(LIBFT)/$(ARCHIVE)
+				@$(CC) $(CFLAGS) -o pipex $^ -L$(LIBFT) -lft
+				@echo "$(GREEN)Bonus compilation done"
+
+$(LIBFT)/$(ARCHIVE):
+				@make -C $(LIBFT)
+
+clean		:
+				@$(RM) $(OBJS) $(BOBJS)
+				@make clean -C $(LIBFT)
 				@echo "Object files cleaned✅"
 
-fclean  :		clean
-				@${RM} ${NAME}
-				@${RM} pipex
+fclean		: 	clean
+				@$(RM) $(NAME)
+				@$(RM) pipex
+				@make fclean -C $(LIBFT)
 				@echo "Archive files cleaned✅"
 
-re		:		fclean all
+re			:	fclean all
 
- .PHONY	:		all clean fclean re .c.o
+.PHONY		: 	all clean fclean re .c.o
