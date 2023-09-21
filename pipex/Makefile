@@ -6,13 +6,13 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/28 19:53:56 by yeolee2           #+#    #+#              #
-#    Updated: 2023/09/12 01:22:33 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/09/21 16:48:51 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 	pipex.c process.c
+SRCS		= 	main.c process.c parse.c
 
-BONUS		=	bonus/pipex_bonus.c bonus/process_bonus.c
+BONUS		=	bonus/main_bonus.c bonus/process_bonus.c bonus/parse_bonus.c bonus/heredoc_bonus.c
 
 OBJS		= 	${SRCS:.c=.o}
 

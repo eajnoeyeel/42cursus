@@ -3,33 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 04:57:59 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/09/07 03:05:55 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2023/09/21 00:48:25 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	parent_process(int infile, int *fd)
+void	setup_parent_input_fd(int infile, int *fd)
 {
-	close(infile);
-	infile = dup(fd[READ]);
+	dup2(fd[READ], infile);
 	close(fd[READ]);
 	close(fd[WRITE]);
 }
 
-void	child_process(t_cmd **cmd, int *fd, int idx)
+void	setup_child_redir(t_file file, int *fd, int idx, int cnt)
+{
+	if (dup2(file.in, STDIN_FILENO) == -1)
+		ft_printf("%s\n", strerror(errno));
+	if (idx == cnt - 1)
+	{
+		if (dup2(file.out, STDOUT_FILENO) == -1)
+			ft_printf("%s\n", strerror(errno));
+	}
+	else
+	{
+		if (dup2(fd[WRITE], STDOUT_FILENO) == -1)
+			ft_printf("%s\n", strerror(errno));
+	}
+}
+
+void	exe_cmd_in_child(t_cmd **cmd, int *fd, int idx)
 {
 	close(fd[READ]);
 	close(fd[WRITE]);
 	execve((*cmd)[idx].set[0], (*cmd)[idx].set, NULL);
-	exit(-1);
+	exit(EXIT_FAILURE);
 }
 
 void	create_process(t_cmd *cmd, t_file file, int cnt)
-{ 
+{
 	int		fd[2];
 	int		idx;
 	pid_t	pid;
@@ -42,20 +57,11 @@ void	create_process(t_cmd *cmd, t_file file, int cnt)
 		pid = fork();
 		if (!pid)
 		{
-			dup2(file.in, STDIN_FILENO);
-			if (idx == cnt - 1)
-				dup2(file.out, STDOUT_FILENO);
-			else
-				dup2(fd[WRITE], STDOUT_FILENO);
-			child_process(&cmd, fd, idx);
+			setup_child_redir(file, fd, idx, cnt);
+			exe_cmd_in_child(&cmd, fd, idx);
 		}
 		else
-			parent_process(file.in, fd);
-		// The pid parameter specifies the set of child processes for which to wait.
-		// If pid == 0, the call waits for any child process in the process group of the caller.
-		// If waitpid() returns due to a stopped or terminated child process,
-		// the process ID of the child is returned to the calling process.
-		// Otherwise, a value of -1 is returned and errno is set to indicate the error.
+			setup_parent_input_fd(file.in, fd);
 	}
 	while (waitpid(0, NULL, 0) >= 0)
 		;

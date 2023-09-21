@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 03:08:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/09/21 00:43:38 by yeolee2          ###   ########.fr       */
+/*   Created: 2023/07/18 22:37:28 by iyeonjae          #+#    #+#             */
+/*   Updated: 2023/09/21 16:34:30 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	main(int argc, char *argv[], char **env)
 {
-	size_t	idx;
+	t_cmd	*arr;
+	t_file	file;
 
-	idx = 0;
-	while (s1[idx] || s2[idx])
-	{
-		if (s1[idx] != s2[idx])
-			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
-		idx++;
-	}
+	if (argc != 5)
+		return (0);
+	file.in = open(argv[1], O_RDONLY);
+	if (file.in < 0)
+		ft_printf("%s\n", strerror(errno));
+	file.out = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+	arr = set_cmd(get_path(env), argc, argv);
+	create_process(arr, file, argc - 3);
 	return (0);
 }
