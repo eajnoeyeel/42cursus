@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 02:47:02 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/08 00:26:23 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:58:25 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // TODO: Color info
-int	*parse_map(char **tmp)
+int	*parse_map(char **tmp, t_map *map)
 {
 	int	*res;
 	int	len;
@@ -24,6 +24,10 @@ int	*parse_map(char **tmp)
 	col = 0;
 	while (col < len)
 	{
+		if(ft_strrchr(tmp[col], ','))
+		{
+			
+		}
 		res[col] = ft_atoi(tmp[col]);
 		col++;
 	}
@@ -31,7 +35,7 @@ int	*parse_map(char **tmp)
 	return (res);
 }
 
-void	read_file(char *file, t_pos *map)
+void	read_file(char *file, t_map *map)
 {
 	int     fd;
 	int		row;
@@ -60,7 +64,7 @@ void	read_file(char *file, t_pos *map)
 			// 0
 			// -1
 			// -1
-			map->pos[row] = parse_map(tmp);
+			map->arr[row] = parse_map(tmp, map);
 			free(line);
 			row++;
 		}
@@ -73,10 +77,11 @@ void	read_file(char *file, t_pos *map)
 
 int main(int argc, char *argv[])
 {
-	t_pos   map;
+	t_map   map;
 
 	if (argc == 2)
 		read_file(argv[1], &map);
 	map.ptr = mlx_init();
-	mlx_new_window(map.ptr, 50, 50, "fdf");
+	mlx_new_window(map.ptr, 1000, 800, "fdf");
+	mlx_loop(map.ptr);
 }

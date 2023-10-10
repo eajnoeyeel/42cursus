@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/10/08 01:05:33 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/10/08 01:39:38 by yeolee2          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ ARCHIVE		= 	libft.a
 
 MLX			=	minilibx
 
-MLXFLAGS	=	-Lmlx -lmlx -framework OpenGL -framework Appkit
+MLXFLAGS	=	-Lminilibx -lmlx -framework OpenGL -framework Appkit
 
 LIBMLX		=	libmlx.a
 
@@ -57,8 +57,7 @@ all			: 	$(NAME)
 				@$(CC) $(CFLAGS) -I$(INCLUDES) -c -o $@ $<
 
 $(NAME)		: 	$(OBJS) $(LIBFT)/$(ARCHIVE) $(MLX)/$(LIBMLX)
-				@$(CC) $(MLXFLAGS) -o $(NAME) $(OBJS) -L$(MLX)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT) -lft
+				@$(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT) -lft -L$(MLX) -lmlx
 				@echo "$(GREEN)Mandatory Compilation done"
 
 $(BOBJS)	:	$(BINCLUDES)
@@ -87,4 +86,3 @@ fclean		: 	clean
 re			:	fclean all
 
 .PHONY		: 	all clean fclean re .c.o
-
