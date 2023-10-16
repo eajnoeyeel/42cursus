@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/10/08 01:39:38 by yeolee2          ###   ########seoul.kr   #
+#    Updated: 2023/10/12 02:51:54 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INCLUDES	=	fdf.h
 
 # BINCLUDES	=	bonus/pipex_bonus.h
 
-CFLAGS		= 	-Wall -Wextra -Werror -g3
+CFLAGS		= 	-Wall -Wextra -Werror -g -g3
 
 NAME        = 	fdf
 
