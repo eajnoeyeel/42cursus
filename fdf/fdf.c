@@ -6,22 +6,25 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 02:47:02 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/17 00:43:41 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/19 06:10:51 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "fdf.h"
 
 // TODO: Color info
 void	parse_map(char **tmp, t_map *map, int row)
 {
 	char	**dum;
+	// TODO: Variable len might not be necessary since the width data is stored in struct
 	int		len;
 	int		col;
 
 	// Because tmp has a newline at the end
 	len = ft_linecnt(tmp) - 1;
-	// res = malloc(sizeof(int) * len);
+	// Store the width info of the map
+	map->height = len;
 	col = -1;
 	map->pos[row] = malloc(sizeof(t_pos) * len);
 	while (++col < len)
@@ -29,12 +32,12 @@ void	parse_map(char **tmp, t_map *map, int row)
 		if (ft_strrchr(tmp[col], ','))
 		{
 			dum = ft_split(tmp[col], ',');
-			map->pos[row][col].chro = dum[1];
+			map->pos[row][col].chroma = dum[1];
 			// Always use ft_free when freeing the splitted object
 			ft_free(dum, ft_linecnt(dum));
 		}
 		else
-			map->pos[row][col].chro = WHITE;
+			map->pos[row][col].chroma = WHITE;
 		// Assign necessary data for each point
 		map->pos[row][col].x = col;
 		map->pos[row][col].y = row;
@@ -50,7 +53,7 @@ void	read_file(char *file, t_map *map)
 	char	**tmp;
 	char    *line;
 
-	// TODO: Check if the file has a ".fdf" extension
+	// TODO: Check if the file ENDS with a ".fdf" extension
 	if (ft_strnstr(file, ".fdf", ft_strlen(file)) != NULL)
 	{
 		// Open the file
@@ -84,6 +87,8 @@ void	read_file(char *file, t_map *map)
 			free(line);
 			row++;
 		}
+		// Store the height info of the map
+		map->width = row;
 		// Close the file when done
 		close(fd);
 	}
@@ -100,7 +105,7 @@ void	my_mlx_pixel_put(t_map *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = mlx->add + (y * mlx->len + x * (mlx->bit / 8));
+	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -118,7 +123,7 @@ void draw_line(t_map *mlx, int x0, int y0, int x1, int y1, int color)
     // Determine the direction for x-axis movement
     if (x0 < x1) 
         sx = 1;  // Move right
-    else 
+    else
         sx = -1; // Move left
 
     // Determine the direction for y-axis movement
@@ -157,6 +162,61 @@ void draw_line(t_map *mlx, int x0, int y0, int x1, int y1, int color)
     }
 }
 
+void	isometric_projection(t_map *map)
+{
+	int	row;
+	int	col;
+
+	map->arr = malloc(sizeof(t_arr) * map->height);
+	row = 0;
+	while (row < map->height)
+	{
+		map->arr[row] = malloc(sizeof(t_arr) * map->width);
+		col = 0;
+		while (col < map->width)
+		{
+			// Axonometric Projection
+			// map->arr[row][col].x = map->pos[row][col].x * cos(theta) - map->pos[row][col].y * sin(theta);
+			// map->arr[row][col].y = (map->pos[row][col].x * cos(theta) + map->pos[row][col].y * sin(theta)) / 2 - map->pos[row][col].z;
+			map->arr[row][col].x = map->pos[row][col].x - map->pos[row][col].y;
+			map->arr[row][col].y = (map->pos[row][col].x + map->pos[row][col].y) / 2 - map->pos[row][col].z;
+			col++;
+		}
+		row++;
+	}
+}
+
+void draw_wireframe(t_map *map)
+{
+    int row;
+	int	col;
+    t_arr curr, right, below;
+
+	row = 0;
+    while (row < map->height)
+    {
+		col = 0;
+		while (col < map->width)
+        {
+            curr = map->arr[row][col];
+            // Draw the horizontal line if not on the rightmost edge
+            if (col < map->width - 1)
+            {
+                right = map->arr[row][col + 1];
+                draw_line(map, curr.x, curr.y, right.x, right.y, 0x00FFFFFF); // Use desired color
+            }
+            // Draw the vertical line if not on the bottommost row
+            if (row < map->height - 1)
+            {
+                below = map->arr[row + 1][col];
+                draw_line(map, curr.x, curr.y, below.x, below.y, 0x00FFFFFF); // Use desired color
+            }
+			col++;
+        }
+		row++;
+    }
+}
+
 int main(int argc, char *argv[])
 {
 	t_map   map;
@@ -165,13 +225,13 @@ int main(int argc, char *argv[])
 		read_file(argv[1], &map);
 	map.ptr = mlx_init();
 	map.win = mlx_new_window(map.ptr, 1000, 800, "fdf");
-	map.img = mlx_new_image(map.ptr, 1920, 1080);
-	
+	map.img = mlx_new_image(map.ptr, map.width, map.height);
 	// char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
 	// The function returns a character pointer that points to the first pixel in the image.
 	// You can think of this as the "starting address" of the image data in memory.
-	map.add = mlx_get_data_addr(map.img, &map.bit, &map.len, &map.end);
-	draw_line(&map, 0, 0, 1920, 1080, 0x00FFFFFF);
+	map.addr = mlx_get_data_addr(map.img, &map.bits_per_pixel, &map.line_length, &map.endian);
+	isometric_projection(&map);
+	draw_wireframe(&map);
 	mlx_put_image_to_window(map.ptr, map.win, map.img, 0, 0);
 	mlx_loop(map.ptr);
 }

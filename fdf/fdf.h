@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:39:17 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/16 00:02:41 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/19 03:49:12 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,31 @@
 
 typedef struct s_pos
 {
-	int				x;
-	int				y;
-	int				z;
+	int		x;
+	int		y;
+	int		z;
 	//TODO: May need modification regarding the data type
-	char			*chro;
-}					t_pos;
+	char	*chroma;
+}			t_pos;
+
+typedef struct s_arr
+{
+	int	x;
+	int	y;	
+}			t_arr;
 
 typedef struct s_map
 {
 	void			*ptr;
 	void			*win;
 	void			*img;
-	char			*add;
-	int				bit;
-	int				len;
-	int				end;
-	int				**arr;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+	struct s_arr	**arr;
 	struct s_pos	**pos;
 }					t_map;
 
