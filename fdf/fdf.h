@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:39:17 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/19 03:49:12 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/23 21:02:17 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WHITE "0xFFFFFF"
+# define WHITE	"0xFFFFFF"
+# define WIDTH	1000
+# define HEIGHT	800
 
 typedef struct s_pos
 {
@@ -38,7 +40,14 @@ typedef struct s_arr
 {
 	int	x;
 	int	y;	
-}			t_arr;
+}		t_arr;
+
+typedef struct s_bound
+{
+    t_arr	min;
+    t_arr	max;
+	t_arr	fig;
+}			t_bound;
 
 typedef struct s_map
 {

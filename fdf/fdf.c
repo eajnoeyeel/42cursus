@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 02:47:02 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/19 06:10:51 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/24 00:45:45 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	parse_map(char **tmp, t_map *map, int row)
 	int		len;
 	int		col;
 
-	// Because tmp has a newline at the end
+	// TODO: Because tmp has a newline at the end
 	len = ft_linecnt(tmp) - 1;
 	// Store the width info of the map
-	map->height = len;
+	map->width = len;
 	col = -1;
 	map->pos[row] = malloc(sizeof(t_pos) * len);
+	if (!map->pos[row])
+		return ;
 	while (++col < len)
 	{
 		if (ft_strrchr(tmp[col], ','))
@@ -70,7 +72,9 @@ void	read_file(char *file, t_map *map)
 			row++;
 		close(fd);
 		// Count rows of the map to malloc
-		map->pos = malloc(sizeof(t_pos) * row);
+		map->pos = malloc(sizeof(t_pos *) * row);
+		if (!map->pos)
+			return ;
 		fd = open(file, O_RDONLY);
 		row = 0;
 		while ((line = get_next_line(fd)))
@@ -88,7 +92,7 @@ void	read_file(char *file, t_map *map)
 			row++;
 		}
 		// Store the height info of the map
-		map->width = row;
+		map->height = row;
 		// Close the file when done
 		close(fd);
 	}
@@ -109,6 +113,7 @@ void	my_mlx_pixel_put(t_map *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+//TODO: Parameter 'color' may not be necessary here since the t_map holds chroma
 void draw_line(t_map *mlx, int x0, int y0, int x1, int y1, int color)
 {
     // Compute the difference between the start and end points
@@ -166,8 +171,10 @@ void	isometric_projection(t_map *map)
 {
 	int	row;
 	int	col;
+	// double theta = M_PI / 6; // 45 degrees for isometric
+	// double phi = M_PI / 6;   // 30 degrees for isometric
 
-	map->arr = malloc(sizeof(t_arr) * map->height);
+	map->arr = malloc(sizeof(t_arr *) * map->height);
 	row = 0;
 	while (row < map->height)
 	{
@@ -175,41 +182,97 @@ void	isometric_projection(t_map *map)
 		col = 0;
 		while (col < map->width)
 		{
-			// Axonometric Projection
-			// map->arr[row][col].x = map->pos[row][col].x * cos(theta) - map->pos[row][col].y * sin(theta);
-			// map->arr[row][col].y = (map->pos[row][col].x * cos(theta) + map->pos[row][col].y * sin(theta)) / 2 - map->pos[row][col].z;
-			map->arr[row][col].x = map->pos[row][col].x - map->pos[row][col].y;
-			map->arr[row][col].y = (map->pos[row][col].x + map->pos[row][col].y) / 2 - map->pos[row][col].z;
+			// Isometric Projection
+			// map->arr[row][col].x = (map->pos[row][col].x - map->pos[row][col].y) * cos(theta);
+			// map->arr[row][col].y = - map->pos[row][col].z + (map->pos[row][col].x + map->pos[row][col].y) * sin(theta);
+			map->arr[row][col].x = col;
+			map->arr[row][col].y = row;
 			col++;
 		}
 		row++;
 	}
 }
 
-void draw_wireframe(t_map *map)
+t_bound calculate_bounds(t_map *map)
 {
-    int row;
-	int	col;
-    t_arr curr, right, below;
+	int		row;
+	int		col;
+    t_bound bounds;
+
+    bounds.min.x = map->arr[0][0].x;
+    bounds.min.y = map->arr[0][0].y;
+    bounds.max.x = map->arr[0][0].x;
+    bounds.max.y = map->arr[0][0].y;
 
 	row = 0;
     while (row < map->height)
+	{
+		col = 0;
+        while (col < map->width)
+		{
+            bounds.min.x = fmin(bounds.min.x, map->arr[row][col].x);
+            bounds.min.y = fmin(bounds.min.y, map->arr[row][col].y);
+            bounds.max.x = fmax(bounds.max.x, map->arr[row][col].x);
+            bounds.max.y = fmax(bounds.max.y, map->arr[row][col].y);
+			col++;
+        }
+		row++;
+    }
+	bounds.fig.x = bounds.max.x - bounds.min.x;
+	bounds.fig.y = bounds.max.y - bounds.min.y;
+    return (bounds);
+}
+
+double	compute_scale(t_bound bounds)
+{
+	double	scaleX;
+	double	scaleY;
+	double	factor;
+
+	factor = 0.3;
+	scaleX = (double) (WIDTH * factor) / bounds.fig.x;
+	scaleY = (double) (HEIGHT * factor) / bounds.fig.y;
+	return (fmin(scaleX, scaleY));
+}
+
+t_arr	calculate_offset(t_bound bounds, double scale)
+{
+	t_arr	offset;
+
+	offset.x = (WIDTH - (bounds.max.x - bounds.min.x) * scale) / 2 - bounds.min.x * scale;
+	offset.y = (HEIGHT - (bounds.max.y - bounds.min.y) * scale) / 2 - bounds.min.y * scale;
+	return (offset);
+}
+
+void	draw_wireframe(t_map *map)
+{
+    int		row;
+	int		col;
+	double	scale;
+	t_bound bounds;
+    t_arr	curr, right, below, offset;
+
+	bounds = calculate_bounds(map);
+	scale = 10;
+	offset = calculate_offset(bounds, scale);
+	row = 0;
+    while (row < map->height - 5)
     {
 		col = 0;
-		while (col < map->width)
+		while (col < map->width - 5)
         {
             curr = map->arr[row][col];
             // Draw the horizontal line if not on the rightmost edge
             if (col < map->width - 1)
             {
                 right = map->arr[row][col + 1];
-                draw_line(map, curr.x, curr.y, right.x, right.y, 0x00FFFFFF); // Use desired color
+                draw_line(map, curr.x * scale + offset.x, curr.y * scale + offset.y, right.x * scale + offset.x, right.y * scale + offset.y, 0x00FFFFFF); // Use desired color
             }
             // Draw the vertical line if not on the bottommost row
             if (row < map->height - 1)
             {
                 below = map->arr[row + 1][col];
-                draw_line(map, curr.x, curr.y, below.x, below.y, 0x00FFFFFF); // Use desired color
+                draw_line(map, curr.x * scale + offset.x, curr.y * scale + offset.y, below.x * scale + offset.x, below.y * scale + offset.y, 0x00FFFFFF); // Use desired color
             }
 			col++;
         }
@@ -223,9 +286,18 @@ int main(int argc, char *argv[])
 
 	if (argc == 2)
 		read_file(argv[1], &map);
+	for (int i = 0; i < map.height; i++)
+	{
+		for (int j = 0; j < map.width; j++)
+		{
+			printf("%d  ", map.pos[i][j].z);
+		}
+		printf("\n");
+	}
+	printf("map.width: %d map.height: %d\n", map.width, map.height);
 	map.ptr = mlx_init();
-	map.win = mlx_new_window(map.ptr, 1000, 800, "fdf");
-	map.img = mlx_new_image(map.ptr, map.width, map.height);
+	map.win = mlx_new_window(map.ptr, WIDTH, HEIGHT, "fdf");
+	map.img = mlx_new_image(map.ptr, WIDTH, HEIGHT);
 	// char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
 	// The function returns a character pointer that points to the first pixel in the image.
 	// You can think of this as the "starting address" of the image data in memory.
