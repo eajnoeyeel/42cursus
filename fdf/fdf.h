@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:39:17 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/23 21:02:17 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/30 02:22:15 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WHITE	"0xFFFFFF"
+# define WHITE	0xFFFFFF
 # define WIDTH	1000
 # define HEIGHT	800
 
 typedef struct s_pos
 {
-	int		x;
-	int		y;
-	int		z;
+	double	x;
+	double	y;
+	double	z;
 	//TODO: May need modification regarding the data type
-	char	*chroma;
+	int		chroma;
 }			t_pos;
 
 typedef struct s_arr
 {
-	int	x;
-	int	y;	
+	double	x;
+	double	y;
 }		t_arr;
 
 typedef struct s_bound
