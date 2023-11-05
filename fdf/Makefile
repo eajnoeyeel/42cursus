@@ -6,11 +6,11 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/10/12 02:51:54 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/11/03 04:39:59 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 	fdf.c
+SRCS		= 	fdf.c parse.c rotate.c draw.c
 
 # BONUS		=	
 

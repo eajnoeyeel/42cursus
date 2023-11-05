@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 02:19:24 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/23 22:43:01 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/10/31 01:26:59 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_atoi(const char *str)
 		res = res * 10 + str[idx] - '0';
 		idx++;
 	}
-	if (str[idx] == '\n' || neg * res > 2147483647 || neg * res < -2147483648)
+	if (neg * res > 2147483647 || neg * res < -2147483648)
 		print_error(2);
 	return (neg * res);
 }
