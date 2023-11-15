@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:48:45 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/10/30 02:17:29 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/15 17:57:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_wrdcnt(char *str, char c);
-long    ft_hextol(const char *str);
+long	ft_hextol(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memchr(const void *s, int c, size_t n);

@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:01:20 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/03/18 04:01:15 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/07 01:24:20 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	idx;
-	char	*cdst;
-	char	*csrc;
+	size_t				idx;
+	unsigned char		*cdst;
+	const unsigned char	*csrc;
 
 	if (dst || src)
 	{
-		cdst = (char *)dst;
-		csrc = (char *)src;
+		cdst = (unsigned char *)dst;
+		csrc = (const unsigned char *)src;
 		idx = 0;
 		while (idx < n)
 		{

@@ -6,13 +6,13 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/11/03 04:39:59 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/11/15 16:07:16 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 	fdf.c parse.c rotate.c draw.c
+SRCS		= 	fdf.c parse.c rotate.c draw.c hook.c init.c projection.c
 
-# BONUS		=	
+# BONUS		=	fdf_bonus.c parse_bonus.c rotate_bonus.c draw_bonus.c hook_bonus.c init_bonus.c projection_bonus.c
 
 OBJS		= 	${SRCS:.c=.o}
 
