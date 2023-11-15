@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection.c                                       :+:      :+:    :+:   */
+/*   projection_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:45:59 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/11/16 02:11:01 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/16 02:20:51 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	compute_scale(t_map *map)
 {
@@ -53,7 +53,8 @@ void	isometric_projection(t_map *map)
 		{
 			tmp = map->pos[row][col];
 			map->pos[row][col].axis = (tmp.axis - tmp.ordi) * map->scale;
-			map->pos[row][col].ordi = ((tmp.axis + tmp.ordi) / 2 - tmp.alti) * map->scale;
+			map->pos[row][col].ordi = ((tmp.axis + tmp.ordi) \
+				/ 2 - tmp.alti) * map->scale;
 			col++;
 		}
 		row++;

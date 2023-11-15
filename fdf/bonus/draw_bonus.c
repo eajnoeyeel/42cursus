@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 02:51:23 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/11/16 02:12:55 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/16 02:21:12 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	calculate_offset(t_map *map)
 {
@@ -54,7 +54,8 @@ void	draw_line(t_mlx *mlx, t_pos curr, t_pos next)
 	while (1)
 	{
 		my_mlx_pixel_put(mlx, (int)curr.axis, (int)curr.ordi, curr.chro);
-		if ((int)curr.axis == (int)next.axis && (int)curr.ordi == (int)next.ordi) 
+		if ((int)curr.axis == (int)next.axis \
+			&& (int)curr.ordi == (int)next.ordi) 
 			break ;
 		if (2 * err > -dy)
 		{

@@ -6,13 +6,14 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/11/15 16:07:16 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/11/16 04:18:41 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= 	fdf.c parse.c rotate.c draw.c hook.c init.c projection.c
 
-# BONUS		=	fdf_bonus.c parse_bonus.c rotate_bonus.c draw_bonus.c hook_bonus.c init_bonus.c projection_bonus.c
+BONUS		=	bonus/fdf_bonus.c bonus/parse_bonus.c bonus/rotate_bonus.c\
+				bonus/draw_bonus.c bonus/hook_bonus.c bonus/init_bonus.c bonus/projection_bonus.c
 
 OBJS		= 	${SRCS:.c=.o}
 
@@ -22,7 +23,7 @@ CC			= 	cc
 
 INCLUDES	=	fdf.h
 
-# BINCLUDES	=	bonus/pipex_bonus.h
+BINCLUDES	=	bonus/fdf_bonus.h
 
 CFLAGS		= 	-Wall -Wextra -Werror -g -g3
 
@@ -56,15 +57,19 @@ all			: 	$(NAME)
 				@echo "$(YELLOW)Compiling..."
 				@$(CC) $(CFLAGS) -I$(INCLUDES) -c -o $@ $<
 
+%.o			:	%.c $(BINCLUDES)
+				@echo "$(YELLOW)Compiling bonus..."
+				@$(CC) $(CFLAGS) -I$(BINCLUDES) -c -o $@ $<
+
 $(NAME)		: 	$(OBJS) $(LIBFT)/$(ARCHIVE) $(MLX)/$(LIBMLX)
 				@$(CC) $(CFLAGS) $(MLXFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT) -lft -L$(MLX) -lmlx
 				@echo "$(GREEN)Mandatory Compilation done"
 
 $(BOBJS)	:	$(BINCLUDES)
 
-# bonus		: 	$(BOBJS) $(LIBFT)/$(ARCHIVE)
-# 				@$(CC) $(CFLAGS) -o pipex $^ -L$(LIBFT) -lft
-# 				@echo "$(GREEN)Bonus compilation done"
+bonus		:	$(BOBJS) $(LIBFT)/$(ARCHIVE) $(MLX)/$(LIBMLX)
+				@$(CC) $(CFLAGS) $(MLXFLAGS) -o fdf_bonus $^ -L$(LIBFT) -lft -L$(MLX) -lmlx
+				@echo "$(GREEN)Bonus compilation done"
 
 $(LIBFT)/$(ARCHIVE):
 				@make -C $(LIBFT)
