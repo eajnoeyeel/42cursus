@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 05:43:40 by iyeonjae          #+#    #+#             */
-/*   Updated: 2023/09/21 00:46:48 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/22 02:08:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_file
 }	t_file;
 
 /* PARSE COMMAND LINE */
-int		ft_linecnt(char **str);
+int		ft_strslen(char **str);
 char	**get_cmd(char *path, char *argv);
 char	**parse_cmd(char **cmd, char **res);
 char	*get_path(char **env);

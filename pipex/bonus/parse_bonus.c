@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:36:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/09/21 16:37:06 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:28:50 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_path(char **env)
 	return (res);
 }
 
-int	ft_linecnt(char **str)
+int	ft_strslen(char **str)
 {
 	int	cnt;
 
@@ -45,7 +45,7 @@ char	**parse_cmd(char **cmd, char **res)
 		{
 			free(cmd[0]);
 			cmd[0] = tmp;
-			ft_free(res, ft_linecnt(res));
+			ft_free(res, ft_strslen(res));
 			return (cmd);
 		}
 		else

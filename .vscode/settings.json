@@ -1,6 +1,9 @@
 {
 	"files.associations": {
 		"push_swap.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"ratio": "c",
+		"limits": "c",
+		"math.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 04:06:28 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/11/16 02:11:43 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/22 02:08:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parse_chroma(char **tmp, t_map *map, int row, int col)
 	{
 		dum = ft_split(tmp[col], ',');
 		map->pos[row][col].chro = (int)ft_hextol(dum[1]);
-		ft_free(dum, ft_linecnt(dum));
+		ft_free(dum, ft_strslen(dum));
 	}
 	else
 		map->pos[row][col].chro = WHITE;
@@ -30,7 +30,7 @@ void	parse_map(char **tmp, t_map *map, int row)
 {
 	int		col;
 
-	map->width = ft_linecnt(tmp);
+	map->width = ft_strslen(tmp);
 	col = -1;
 	map->pos[row] = ft_calloc(map->width, sizeof(t_pos));
 	if (!map->pos[row])
@@ -42,7 +42,7 @@ void	parse_map(char **tmp, t_map *map, int row)
 		map->pos[row][col].ordi = row - map->height / 2;
 		map->pos[row][col].alti = ft_atoi(tmp[col]);
 	}
-	ft_free(tmp, ft_linecnt(tmp));
+	ft_free(tmp, ft_strslen(tmp));
 }
 
 int	check_file_extension_and_open(char *file)

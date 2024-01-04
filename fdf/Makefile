@@ -6,7 +6,7 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 17:17:33 by yeolee2           #+#    #+#              #
-#    Updated: 2023/11/16 04:18:41 by yeolee2          ###   ########.fr        #
+#    Updated: 2023/11/16 04:41:19 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ clean		:
 
 fclean		: 	clean
 				@$(RM) $(NAME)
-				@$(RM) pipex
+				@$(RM) fdf_bonus
 				@make fclean -C $(LIBFT)
 				@echo "Archive files cleaned✅"
 

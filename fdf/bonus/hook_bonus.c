@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:44:16 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/11/16 02:19:55 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/16 04:58:20 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	handle_key(int keycode, t_map *map)
 		map->theta.y += delta;
 	else if (keycode == KEY_DOWN)
 		map->theta.y -= delta;
-	else if (keycode == KEY_ZOOM_IN)
+	else if (keycode == KEY_ZOOM_IN && (map->scale < 800))
 		map->scale++;
-	else if (keycode == KEY_ZOOM_OUT)
+	else if (keycode == KEY_ZOOM_OUT && (map->scale > 0))
 		map->scale--;
 	apply_rotation(map);
 	mlx_destroy_image(map->mlx.ptr, clean_old_image(&map->mlx));

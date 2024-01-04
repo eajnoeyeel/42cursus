@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 04:57:59 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/09/29 18:39:20 by yeolee2          ###   ########.fr       */
+/*   Updated: 2023/11/22 02:08:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exe_cmd_in_child(t_cmd **cmd, int *fd, int idx)
 	close(fd[READ]);
 	close(fd[WRITE]);
 	execve((*cmd)[idx].set[0], (*cmd)[idx].set, NULL);
-	ft_free(cmd, ft_linecnt(cmd));
+	ft_free(cmd, ft_strslen(cmd));
 	exit(EXIT_FAILURE);
 }
 
