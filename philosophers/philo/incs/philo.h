@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 00:04:22 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/24 23:07:01 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/01/29 00:44:32 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define SUCCESS 0
 # define DEAD 1
 # define ALIVE 0
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_shared
 {
@@ -50,5 +52,26 @@ typedef struct	s_philo
 	pthread_t	thread;
 	t_shared	*shared;
 }	t_philo;
+
+void	free_philo_and_cleanup(t_philo *philo, t_shared *shared);
+void	destroy_mutex(t_shared *shared);
+void	*run_philo(void *arg);
+int	print_status(t_philo *philo, char *status);
+
+void	feed_philo(t_philo *philo);
+int	think_philo(t_philo *philo);
+int	sleep_philo(t_philo *philo);
+int	grab_fork(t_philo *philo);
+
+int		is_dead(int idx, t_philo *philo, t_shared *shared);
+void	monitor(t_philo *philo, t_shared *shared);
+
+long long	get_curr_time(void);
+void	wait_philo(long long time);
+
+void	parse_arg(int argc, char *argv[], t_shared *shared);
+void	init_thread(t_philo *philo, t_shared *shared);
+int	init_mutex(t_shared *shared);
+t_philo	*init_philo(t_shared *shared);
 
 # endif
