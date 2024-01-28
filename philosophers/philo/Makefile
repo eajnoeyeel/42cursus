@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 00:59:01 by yeolee2           #+#    #+#              #
-#    Updated: 2024/01/28 18:05:52 by yeolee2          ###   ########seoul.kr   #
+#    Updated: 2024/01/29 01:36:01 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS				=	srcs/main.c
+SRCS				=	srcs/main.c srcs/action.c srcs/init.c srcs/monitor.c srcs/time.c
 
 OBJS				=	${SRCS:.c=.o}
 
@@ -22,13 +22,9 @@ ARCHIVE				=	libft.a
 
 CC					=	cc
 
-INCLUDES			=	./includes/
+INCLUDES			=	./incs/
 
 CFLAGS				=	-Werror -Wall -Wextra -g3
-
-READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
-
-READLINE_INCLUDES 	= -I/opt/homebrew/opt/readline/include
 
 Black   			=	\033[0;30m
 
@@ -82,7 +78,7 @@ ifdef BONUS
 else
 						@sleep 0.5
 						@echo "$(Green)===============================================$(DEF_COLOR)"
-						@echo "$(Green)| 🥳 philosophers mandatory compile succsess. 🥳 |$(DEF_COLOR)"
+						@echo "$(Green)|🥳 philosophers mandatory compile succsess. 🥳|$(DEF_COLOR)"
 						@echo "$(Green)===============================================$(DEF_COLOR)"
 endif
 
@@ -102,7 +98,7 @@ clean				:
 
 fclean				: 	clean
 						@$(RM) $(NAME)
-						@$(RM) minishell
+						@$(RM) philo
 						@make fclean -C $(LIBFT)
 						@echo "\n🚧 $(Yellow)Cleaning...🚨 $(White)$(NAME)\n"
 						@echo "$(Cyan)Clearing terminal in [3seconds]...$(DEFAULT_COLOR)"

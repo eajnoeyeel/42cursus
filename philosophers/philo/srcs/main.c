@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:57:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/29 00:42:05 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:33:31 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	print_status(t_philo *philo, char *status)
 	if (philo->shared->status == ALIVE)
 	{
 		pthread_mutex_lock(&philo->shared->print);
-		printf("%lld %d %s\n", (tv - philo->shared->start_time) / 1000, philo->idx + 1, status);
+		printf("%lld %d %s\n", (tv - philo->shared->start_time) / 1000, \
+			philo->idx + 1, status);
 		pthread_mutex_unlock(&philo->shared->print);
 	}
 	else
@@ -78,7 +79,7 @@ void	free_philo_and_cleanup(t_philo *philo, t_shared *shared)
 	destroy_mutex(shared);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_philo		*philo;
 	t_shared	shared;

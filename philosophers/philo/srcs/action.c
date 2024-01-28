@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 00:05:52 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/29 00:10:14 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:34:05 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../incs/philo.h"
 
 void	feed_philo(t_philo *philo)
 {
@@ -39,7 +39,7 @@ int	sleep_philo(t_philo *philo)
 	if (print_status(philo, "is sleeping") == FAILURE)
 		return (FAILURE);
 	wait_philo(philo->shared->sleep);
-	return (SUCCESS);	
+	return (SUCCESS);
 }
 
 int	grab_fork(t_philo *philo)

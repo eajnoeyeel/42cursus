@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 00:08:57 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/29 00:41:23 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:35:27 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../incs/philo.h"
 
-int		is_dead(int idx, t_philo *philo, t_shared *shared)
+int	is_dead(int idx, t_philo *philo, t_shared *shared)
 {
 	long long	tv;
 
 	tv = get_curr_time();
 	if (tv == FAILURE)
-		return ;
+		return (FALSE);
 	pthread_mutex_lock(&shared->flag);
 	if (tv - philo[idx].last_eat > shared->die)
 	{
 		shared->status = DEAD;
-		printf("%lld %d %s\n", (tv - shared->start_time) / 1000, philo[idx].idx + 1, "died");
+		printf("%lld %d %s\n", (tv - shared->start_time) / 1000, \
+			philo[idx].idx + 1, "died");
 		pthread_mutex_unlock(&shared->flag);
 		return (TRUE);
 	}
 	if (shared->eat_count == shared->num)
 	{
 		shared->status = DEAD;
-		printf("%lld %d %s\n", (tv - shared->start_time) / 1000, philo[idx].idx + 1, "is full");
+		printf("%lld %d %s\n", (tv - shared->start_time) / 1000, \
+			philo[idx].idx + 1, "is full");
 		pthread_mutex_unlock(&shared->flag);
 		return (TRUE);
 	}

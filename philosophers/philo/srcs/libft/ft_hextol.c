@@ -6,15 +6,15 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 01:54:33 by yeolee2           #+#    #+#             */
-/*   Updated: 2023/11/15 17:57:46 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/01/29 01:36:44 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long    ft_hextol(const char *str)
+long	ft_hextol(const char *str)
 {
-	long    res;
+	long	res;
 
 	res = 0;
 	if (ft_strncmp(str, "0x", 2))

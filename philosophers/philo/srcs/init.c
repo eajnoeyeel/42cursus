@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 00:01:06 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/29 00:05:22 by yeolee2          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:34:56 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../incs/philo.h"
 
 void	parse_arg(int argc, char *argv[], t_shared *shared)
 {
@@ -42,7 +42,8 @@ void	init_thread(t_philo *philo, t_shared *shared)
 		if (tv == FAILURE)
 			return ;
 		philo[idx].last_eat = tv;
-		if (pthread_create(&philo[idx].thread, NULL, run_philo, &philo[idx]) == FAILURE)
+		if (pthread_create(&philo[idx].thread, NULL, \
+			run_philo, &philo[idx]) == FAILURE)
 			return ;
 		idx++;
 	}
@@ -56,7 +57,8 @@ int	init_mutex(t_shared *shared)
 {
 	int	idx;
 
-	shared->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * shared->num);
+	shared->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+		* shared->num);
 	if (!shared->fork)
 		return (FAILURE);
 	idx = 0;
