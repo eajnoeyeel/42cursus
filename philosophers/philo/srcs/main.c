@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:57:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/01/28 00:57:25 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/01/28 18:23:53 by yeolee2          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,17 @@ void	wait_philo(int time)
 
 int	print_status(t_philo *philo, char *status)
 {
+	long long	tv;
+
 	//TODO: Check if the philosopher is dead
+	tv = get_curr_time();
+	if (tv == FAILURE)
+		return (FAILURE);
 	pthread_mutex_lock(&philo->shared->flag);
 	if (philo->shared->status == ALIVE)
 	{
 		pthread_mutex_lock(&philo->shared->print);
-		printf("%lld %d %s\n", get_curr_time() - philo->shared->start_time, philo->idx, status);
+		printf("%lld %d %s\n", tv - philo->shared->start_time, philo->idx + 1, status);
 		pthread_mutex_unlock(&philo->shared->print);
 	}
 	else
@@ -96,9 +101,11 @@ void	*run_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->idx % 2 == 1)
-		// usleep(philo->shared->eat);					
+	if (philo->shared->num % 2 == 1 && philo->idx % 2 == 1)
+		// usleep(philo->shared->eat);
 		wait_philo(philo->shared->eat / 2);
+	else if (philo->shared->num == 0 && philo->idx % 2 == 1)
+		wait_philo(philo->shared->eat * 2);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->shared->fork[philo->left]);
@@ -197,14 +204,14 @@ void	monitor(t_philo *philo, t_shared *shared)
 			if (tv - philo[idx].last_eat > shared->die)
 			{
 				shared->status = DEAD;
-				printf("%lld %d %s\n", tv - shared->start_time, philo[idx].idx, "died");
+				printf("%lld %d %s\n", tv - shared->start_time, philo[idx].idx + 1, "died");
 				pthread_mutex_unlock(&shared->flag);
 				return ;
 			}
 			if (shared->eat_count == shared->num)
 			{
 				shared->status = DEAD;
-				printf("%lld %d %s\n", tv - shared->start_time, philo[idx].idx, "is full");
+				printf("%lld %d %s\n", tv - shared->start_time, philo[idx].idx + 1, "is full");
 				pthread_mutex_unlock(&shared->flag);
 				return ;
 			}
@@ -229,7 +236,7 @@ void	init_thread(t_philo *philo, t_shared *shared)
 		tv = get_curr_time();
 		if (tv == FAILURE)
 			return ;
-		// philo[idx].last_eat = tv;
+		philo[idx].last_eat = tv;
 		if (pthread_create(&philo[idx].thread, NULL, run_philo, &philo[idx]) == FAILURE)
 			return ;
 		idx++;
