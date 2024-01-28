@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
+#    By: yeolee2 <yeolee2@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 00:59:01 by yeolee2           #+#    #+#              #
-#    Updated: 2024/01/28 00:44:24 by yeolee2          ###   ########.fr        #
+#    Updated: 2024/01/28 18:05:52 by yeolee2          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC					=	cc
 
 INCLUDES			=	./includes/
 
-CFLAGS				=	-Werror -Wall -Wextra -g3 -pthread -fsanitize=thread
+CFLAGS				=	-Werror -Wall -Wextra -g3
 
 READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
 
