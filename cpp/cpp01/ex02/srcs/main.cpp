@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:39:18 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/05/30 10:24:06 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/06/01 12:34:08 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int main() {
     std::string str = "HI THIS IS BRAIN";
     // A pointer to the string
-    std::string *stringPTR = &str;
+    std::string* stringPTR = &str;
     // A reference to the string
-    std::string &stringREF = str;
+    std::string& stringREF = str;
 
     // Memory addresses
     std::cout << &str << std::endl;

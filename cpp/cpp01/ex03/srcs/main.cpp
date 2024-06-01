@@ -6,11 +6,13 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:46:32 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/05/30 22:39:31 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:30:59 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
 int main()
 {

@@ -5,17 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/30 17:38:54 by yeolee2           #+#    #+#              #
-#    Updated: 2024/05/31 23:45:54 by yeolee2          ###   ########.fr        #
+#    Created: 2024/06/01 15:15:09 by yeolee2           #+#    #+#              #
+#    Updated: 2024/06/01 17:17:07 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS        = srcs/main.cpp srcs/HumanA.cpp srcs/HumanB.cpp srcs/Weapon.cpp
+SRCS        = srcs/main.cpp srcs/Harl.cpp
 OBJS        = $(SRCS:.cpp=.o)
 CXX         = c++
 INCLUDES    = ./incs
 CFLAGS      = -Wall -Wextra -Werror -I$(INCLUDES) -std=c++98
-NAME        = weapon
+NAME        = harlFilter
 RM          = rm -rf
 CYAN        = \033[0;36m
 YELLOW      = \033[0;93m

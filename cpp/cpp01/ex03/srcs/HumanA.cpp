@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 19:30:27 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/05/31 22:52:46 by yeolee2          ###   ########.fr       */
+/*   Created: 2024/05/31 23:31:56 by yeolee2           #+#    #+#             */
+/*   Updated: 2024/06/01 12:34:48 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#include "HumanA.hpp"
 
-# include <iostream>
-# include <string>
-# include <iomanip>
-# include "Contact.hpp"
+// Initializer list for reference initialization
+HumanA::HumanA(const std::string& name, Weapon& weapon) : name(name), weapon(weapon)
+{   
+}
 
-class PhoneBook {
-public:
-	PhoneBook();
-	~PhoneBook();
+HumanA::~HumanA()
+{
+    // Destructor implementation
+}
 
-	Contact m_contacts[8];
-	int     m_contactCount;
-
-	void	addContact();
-	void	searchContact();
-	void	displayContacts();
-};
-# endif
+void HumanA::attack() const
+{
+    std::cout << this->name << " attacks with their " << this->weapon.getType() << std::endl;
+}

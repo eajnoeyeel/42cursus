@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 17:41:57 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/06/01 12:33:26 by yeolee2          ###   ########.fr       */
+/*   Created: 2024/05/31 23:12:07 by yeolee2           #+#    #+#             */
+/*   Updated: 2024/05/31 23:37:57 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
+#include "HumanB.hpp"
 
-Weapon::Weapon(std::string type)
+HumanB::HumanB(const std::string& name)
 {
-    this->type = type;
+    this->name = name;
+    this->weapon = nullptr;
 }
 
-Weapon::~Weapon()
+HumanB::~HumanB()
 {
     // Destructor implementation
 }
 
-const std::string& Weapon::getType() const
+void HumanB::setWeapon(Weapon& weapon)
 {
-    return (this->type);
+    this->weapon = &weapon;
 }
 
-void Weapon::setType(std::string type)
+void HumanB::attack() const
 {
-    this->type = type;
+    if (this->weapon)
+        std::cout << this->name << " attacks with their " << this->weapon->getType() << std::endl;
+    else
+        std::cout << this->name << " has no weapon to attack with" << std::endl;
 }

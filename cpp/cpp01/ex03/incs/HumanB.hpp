@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 19:30:27 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/05/31 22:52:46 by yeolee2          ###   ########.fr       */
+/*   Created: 2024/05/31 22:53:39 by yeolee2           #+#    #+#             */
+/*   Updated: 2024/06/01 12:34:35 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+# pragma once
+# include "Weapon.hpp"
 
-# include <iostream>
-# include <string>
-# include <iomanip>
-# include "Contact.hpp"
+class HumanB
+{
+    public:
+        HumanB(const std::string& name);
+        ~HumanB();
 
-class PhoneBook {
-public:
-	PhoneBook();
-	~PhoneBook();
-
-	Contact m_contacts[8];
-	int     m_contactCount;
-
-	void	addContact();
-	void	searchContact();
-	void	displayContacts();
+        void setWeapon(Weapon& weapon);
+        void attack() const;
+    
+    private:
+        std::string name;
+        Weapon*     weapon;
 };
-# endif
