@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:57:09 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/08/01 20:56:11 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/08/01 21:42:50 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,64 +19,47 @@ int	print_status(t_philo *philo, char *status)
 	tv = get_curr_time();
 	if (tv == FAILURE)
 		return (FAILURE);
-	pthread_mutex_lock(&philo->shared->flag);
-	if (philo->shared->status == ALIVE)
-	{
-		pthread_mutex_lock(&philo->shared->print);
-		printf("%lld %d %s\n", (tv - philo->shared->start_time) / 1000, \
-			philo->idx + 1, status);
-		pthread_mutex_unlock(&philo->shared->print);
-	}
-	else
-	{
-		pthread_mutex_unlock(&philo->shared->flag);
-		return (FAILURE);
-	}
-	pthread_mutex_unlock(&philo->shared->flag);
+	if (is_dead(philo, philo->shared))
+		exit(EXIT_FAILURE);
+	sem_wait(philo->shared->print);
+	printf("%lld %d %s\n", (tv - philo->shared->start_time) / 1000, \
+		philo->idx + 1, status);
+	sem_post(philo->shared->print);
 	return (SUCCESS);
 }
 
-void	*run_philo(void *arg)
+void	run_philo(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	if (philo->shared->num == 1)
 	{
 		print_status(philo, "has taken a fork");
-		return (NULL);
+		exit(EXIT_FAILURE);
 	}
-	if (philo->idx % 2 == 1)
-		wait_philo(philo->shared->eat);
 	while (1)
 	{
 		if (grab_fork(philo) == FAILURE)
-			return (NULL);
-		if (sleep_philo(philo) == FAILURE && think_philo(philo) == FAILURE)
-			return (NULL);
+			exit(EXIT_FAILURE);
+		if (sleep_philo(philo) == FAILURE || think_philo(philo) == FAILURE)
+			exit(EXIT_FAILURE);
 	}
-	return (NULL);
+	exit(EXIT_SUCCESS);
 }
 
-void	destroy_mutex(t_shared *shared)
+void	close_semaphore(t_shared *shared)
 {
-	int	idx;
-
-	idx = 0;
-	while (idx < shared->num)
-	{
-		pthread_mutex_destroy(&shared->fork[idx]);
-		idx++;
-	}
-	free(shared->fork);
-	pthread_mutex_destroy(&shared->print);
-	pthread_mutex_destroy(&shared->flag);
+	sem_close(shared->fork);
+	sem_close(shared->print);
+	sem_close(shared->flag);
+	sem_unlink("fork");
+	sem_unlink("print");
+	sem_unlink("flag");
 }
 
 void	free_philo_and_cleanup(t_philo *philo, t_shared *shared)
 {
+	free(shared->pids);
 	free(philo);
-	destroy_mutex(shared);
+	close_semaphore(shared);
 }
 
 int	main(int argc, char *argv[])

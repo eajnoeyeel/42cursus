@@ -6,21 +6,21 @@
 #    By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 00:59:01 by yeolee2           #+#    #+#              #
-#    Updated: 2024/07/31 22:18:17 by yeolee2          ###   ########.fr        #
+#    Updated: 2024/08/01 22:05:27 by yeolee2          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS				=	srcs/action.c \
-						srcs/init.c	\
-						srcs/main.c \
-						srcs/monitor.c \
-						srcs/time.c \
+SRCS				=	srcs/action_bonus.c \
+						srcs/init_bonus.c	\
+						srcs/main_bonus.c \
+						srcs/monitor_bonus.c \
+						srcs/time_bonus.c \
 
 OBJS				=	${SRCS:.c=.o}
 
 BOBJS				=	${BONUS:.c=.o}
 
-NAME				=	philo
+NAME				=	philo_bonus
 
 LIBFT				=	srcs/libft
 
@@ -30,7 +30,7 @@ CC					=	cc
 
 INCLUDES			=	incs/
 
-CFLAGS				=	-Werror -Wall -Wextra -fsanitize=thread
+CFLAGS				=	-Werror -Wall -Wextra
 
 Black   			=	\033[0;30m
 

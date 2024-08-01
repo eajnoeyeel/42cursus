@@ -6,7 +6,7 @@
 /*   By: yeolee2 <yeolee2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 00:01:06 by yeolee2           #+#    #+#             */
-/*   Updated: 2024/08/01 20:56:11 by yeolee2          ###   ########.fr       */
+/*   Updated: 2024/08/01 22:03:46 by yeolee2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,41 @@ void	parse_arg(int argc, char *argv[], t_shared *shared)
 	shared->eat_count = 0;
 }
 
+void	cleanup_process(t_shared *shared)
+{
+	int	idx;
+	int	cnt;
+	int	status;
+
+	idx = 0;
+	cnt = 0;
+	status = 0;
+	while (wait(&status) != -1)
+	{
+		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
+		{
+			while (idx < shared->num)
+			{
+				kill(shared->pids[idx], SIGINT);
+				idx++;
+			}
+			sem_post(shared->print);
+		}
+		else
+			cnt++;
+	}
+	if (cnt == shared->num)
+		printf("All philosophers have eaten %d number of times\n", \
+			shared->must_eat);
+}
+
 void	init_process(t_philo *philo, t_shared *shared)
 {
 	int			idx;
+	int			pid;
 	long long	tv;
 
+	shared->pids = malloc(sizeof(pid_t) * shared->num);
 	tv = get_curr_time();
 	if (tv == FAILURE)
 		return ;
@@ -39,39 +69,30 @@ void	init_process(t_philo *philo, t_shared *shared)
 	while (idx < shared->num)
 	{
 		tv = get_curr_time();
-		if (tv == FAILURE)
+		if (tv == FAILURE) 
 			return ;
 		philo[idx].last_eat = tv;
-		if (pthread_create(&philo[idx].thread, NULL, \
-			run_philo, &philo[idx]) == FAILURE)
-			return ;
+		pid = fork();
+		if (pid == FAILURE)
+			exit(EXIT_FAILURE);
+		else if (!pid)
+			run_philo(&philo[idx]);
+		shared->pids[idx] = pid;
 		idx++;
 	}
-	monitor(philo, shared);
-	idx = -1;
-	while (++idx < shared->num)
-		pthread_join(philo[idx].thread, NULL);
+	cleanup_process(shared);
 }
 
-int	init_mutex(t_shared *shared)
+int	open_semaphore(t_shared *shared)
 {
-	int	idx;
-
-	shared->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-		* shared->num);
-	if (!shared->fork)
-		return (FAILURE);
-	idx = 0;
-	while (idx < shared->num)
-	{
-		if (pthread_mutex_init(&shared->fork[idx], NULL) == FAILURE)
-			return (FAILURE);
-		idx++;
-	}
-	if (pthread_mutex_init(&shared->print, NULL) == FAILURE)
-		return (FAILURE);
-	if (pthread_mutex_init(&shared->flag, NULL) == FAILURE)
-		return (FAILURE);
+	sem_unlink("fork");
+	sem_unlink("print");
+	shared->fork = sem_open("fork", O_CREAT, 0644, shared->num);
+	if (shared->fork == SEM_FAILED)
+		exit(EXIT_FAILURE);
+	shared->print = sem_open("print", O_CREAT, 0644, 1);
+	if (shared->print == SEM_FAILED)
+		exit(EXIT_FAILURE);
 	return (SUCCESS);
 }
 
@@ -87,14 +108,12 @@ t_philo	*init_philo(t_shared *shared)
 	while (idx < shared->num)
 	{
 		philo[idx].idx = idx;
-		philo[idx].left = idx;
-		philo[idx].right = (idx + 1) % shared->num;
 		philo[idx].eat_count = 0;
 		philo[idx].last_eat = 0;
 		philo[idx].shared = shared;
 		idx++;
 	}
-	if (init_mutex(shared) == SUCCESS)
+	if (open_semaphore(shared) == SUCCESS)
 		return (philo);
 	return (NULL);
 }
