@@ -1,0 +1,7 @@
+en.subject.pdf
+.venv/
+__pycache__/
+*.pyc
+ex09/build/
+ex09/dist/
+ex09/*.egg-info/
